@@ -37,7 +37,7 @@ public class ArraySoundMaker implements Observer {
 		}
 		this.array = array;
 		this.array.addObserver(this);
-		scale = 128.0/array.getSize();
+		scale = 127.0/array.getSize();
 		releaseNext = new boolean[128];
 		Arrays.fill(releaseNext, false);
 	}
@@ -52,7 +52,7 @@ public class ArraySoundMaker implements Observer {
 		if (ev instanceof VAEventSingle)
 		{
 			VAEventSingle event = (VAEventSingle)ev;
-			int note = (int) Math.round(array.getSilent(event.getIndex()) * scale) - 1;
+			int note = (int) Math.round(array.getSilent(event.getIndex()) * scale);
 			note = 127 - note;
 			mc[0].noteOn(note, 600);
 			releaseNext[note] = true;
