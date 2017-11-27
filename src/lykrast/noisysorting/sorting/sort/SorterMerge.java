@@ -31,11 +31,7 @@ public class SorterMerge extends SorterAbstract {
 		for (int i=min;i<=max;i++)
 		{
 			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return;
-			}
+			if (isCancelled()) return;
 			if (pointerL <= middle && (pointerR > max || a.get(pointerL) <= a.get(pointerR)))
 			{
 				temp[i-min] = a.get(pointerL);
@@ -54,11 +50,7 @@ public class SorterMerge extends SorterAbstract {
 		for (int i=min;i<=max;i++)
 		{
 			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return;
-			}
+			if (isCancelled()) return;
 			
 			a.set(i, temp[i-min]);
 			sleep();

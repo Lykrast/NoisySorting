@@ -29,6 +29,10 @@ public class SortList extends JList<SelectorAbstract> {
 		//Merging
 		list.add(new SelectorMerge());
 		list.add(new SelectorStrand());
+		//Buckets
+		list.add(new SelectorShuffle());
+		//Hybrid
+		list.add(new SelectorJ());
 		//Slow
 		list.add(new SelectorSlow());
 		list.add(new SelectorStooge());
