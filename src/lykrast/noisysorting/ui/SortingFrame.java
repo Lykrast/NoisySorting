@@ -21,11 +21,24 @@ public class SortingFrame extends JFrame {
 		
 		array = new VisualArray(20);
 		arrayLabel = new ArrayLabel(array);
-		options = new OptionPanel(array);
+		options = new OptionPanel(this, array);
 		soundMaker = new ArraySoundMaker(array);
 		
 		add(arrayLabel, BorderLayout.CENTER);
 		add(options, BorderLayout.EAST);
+	}
+	
+	public void newArray(int size)
+	{
+		array = new VisualArray(size);
+		remove(arrayLabel);
+		arrayLabel = new ArrayLabel(array);
+		add(arrayLabel);
+		options.setArray(array);
+		soundMaker = new ArraySoundMaker(array);
+		
+		revalidate();
+		repaint();
 	}
 
 }

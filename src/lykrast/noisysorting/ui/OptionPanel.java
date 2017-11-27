@@ -15,15 +15,17 @@ import lykrast.noisysorting.sorting.VisualArray;
 import lykrast.noisysorting.sorting.sort.SorterAbstract;
 
 public class OptionPanel extends JPanel implements ActionListener, ChangeListener {
+	private SortingFrame parent;
 	private VisualArray array;
 	private JButton sort, shuffle, reverse, reset;
 	private JSlider speedSlider, sizeSlider;
 	private SortList sortList;
 	private SorterAbstract sorter;
 	
-	public OptionPanel(VisualArray a)
+	public OptionPanel(SortingFrame frame, VisualArray a)
 	{
-		array = a;
+		parent = frame;
+		setArray(a);
 		setLayout(new BorderLayout());
 		//List
 		sortList = new SortList();
@@ -91,7 +93,9 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		else if (event.getSource() == reset)
 		{
 			cancelSort();
-			array.fill();
+			int newsize = Math.max(2, sizeSlider.getValue());
+			if (array.getSize() != newsize) parent.newArray(newsize);
+			else array.fill();
 		}
 		
 	}
@@ -102,6 +106,11 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		{
 			SorterAbstract.setTimeout(speedSlider.getValue());
 		}
+	}
+	
+	public void setArray(VisualArray a)
+	{
+		array = a;
 	}
 	
 	private void cancelSort()

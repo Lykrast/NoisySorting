@@ -14,10 +14,11 @@ import lykrast.noisysorting.sorting.sort.SorterOddEven;
 import lykrast.noisysorting.sorting.sort.SorterSelection;
 import lykrast.noisysorting.sorting.sort.SorterSlow;
 import lykrast.noisysorting.sorting.sort.SorterStooge;
+import lykrast.noisysorting.sorting.sort.SorterStrand;
 
 public class SortList extends JList<String> {
 	private static String[] sorts = {"Selection Sort", "Bubble Sort", "Cocktail Shaker Sort", "Odd-Even Sort", "Gnome Sort",
-			"Comb Sort", "Slow Sort", "Stooge Sort", "Merge Sort"};
+			"Comb Sort", "Slow Sort", "Stooge Sort", "Merge Sort", "Strand Sort"};
 	
 	public SortList()
 	{
@@ -48,6 +49,8 @@ public class SortList extends JList<String> {
 			return new SorterStooge(array);
 		case 8:
 			return new SorterMerge(array);
+		case 9:
+			return new SorterStrand(array);
 		}
 		
 		return null;

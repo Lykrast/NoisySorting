@@ -18,32 +18,53 @@ public class SorterMerge extends SorterAbstract {
 	private void mergeSort(int min, int max)
 	{
 		//Mid-sort cancel
-		if (max - min < 2 || isCancelled()) return;
+		if (min >= max || isCancelled()) return;
 		int middle = (min+max)/2;
 		mergeSort(min,middle);
 		mergeSort(middle+1,max);
-		int[] temp = new int[min - max];
-		int pointerL = min, pointerR = middle;
+		a.mark(min);
+		a.mark(max);
+		a.mark(middle);
+		a.mark(middle+1);
+		int[] temp = new int[max - min + 1];
+		int pointerL = min, pointerR = middle+1;
 		for (int i=min;i<=max;i++)
 		{
-			if (i < middle && (pointerR >= max || a.get(pointerL) <= a.get(pointerR)))
+			//Mid-sort cancel
+			if (isCancelled())
 			{
-				temp[i-min] = a.getSilent(pointerL);
+				a.sortFinished();
+				return;
+			}
+			if (pointerL <= middle && (pointerR > max || a.get(pointerL) <= a.get(pointerR)))
+			{
+				temp[i-min] = a.get(pointerL);
 				pointerL++;
 			}
 			else
 			{
-				temp[i-min] = a.getSilent(pointerR);
+				temp[i-min] = a.get(pointerR);
 				pointerR++;
 			}
 			sleep();
 		}
+		a.unmark(middle);
+		a.unmark(middle+1);
 		
 		for (int i=min;i<=max;i++)
 		{
+			//Mid-sort cancel
+			if (isCancelled())
+			{
+				a.sortFinished();
+				return;
+			}
+			
 			a.set(i, temp[i-min]);
 			sleep();
 		}
+		a.unmark(min);
+		a.unmark(max);
 	}
 
 }
