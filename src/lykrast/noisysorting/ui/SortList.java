@@ -36,6 +36,8 @@ public class SortList extends JList<SelectorAbstract> {
 		//Slow
 		list.add(new SelectorSlow());
 		list.add(new SelectorStooge());
+		list.add(new SelectorBogo());
+		list.add(new SelectorBozo());
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
