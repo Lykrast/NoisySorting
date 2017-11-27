@@ -25,6 +25,12 @@ public class VisualArray extends Observable {
 		return array[index];
 	}
 	
+	public void set(int index, int value)
+	{
+		setUpdated(new VAEventSingle(index, Color.RED));
+		array[index] = value;
+	}
+	
 	public int getSilent(int index)
 	{
 		return array[index];
