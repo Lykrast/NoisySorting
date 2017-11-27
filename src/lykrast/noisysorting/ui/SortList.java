@@ -1,24 +1,41 @@
 package lykrast.noisysorting.ui;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
 import lykrast.noisysorting.sorting.VisualArray;
 import lykrast.noisysorting.sorting.sort.SorterAbstract;
-import lykrast.noisysorting.sorting.sort.SorterBubble;
-import lykrast.noisysorting.sorting.sort.SorterCocktail;
-import lykrast.noisysorting.sorting.sort.SorterComb;
-import lykrast.noisysorting.sorting.sort.SorterGnome;
-import lykrast.noisysorting.sorting.sort.SorterMerge;
-import lykrast.noisysorting.sorting.sort.SorterOddEven;
-import lykrast.noisysorting.sorting.sort.SorterSelection;
-import lykrast.noisysorting.sorting.sort.SorterSlow;
-import lykrast.noisysorting.sorting.sort.SorterStooge;
-import lykrast.noisysorting.sorting.sort.SorterStrand;
+import lykrast.noisysorting.ui.selector.*;
 
-public class SortList extends JList<String> {
-	private static String[] sorts = {"Selection Sort", "Bubble Sort", "Cocktail Shaker Sort", "Odd-Even Sort", "Gnome Sort",
-			"Comb Sort", "Slow Sort", "Stooge Sort", "Merge Sort", "Strand Sort"};
+public class SortList extends JList<SelectorAbstract> {
+	private static SelectorAbstract[] sorts = new SelectorAbstract[0];
+	
+	static
+	{
+		List<SelectorAbstract> list = new ArrayList<>();
+		//Basic
+		list.add(new SelectorSelection());
+		list.add(new SelectorBubble());
+		//Bubble cousins
+		list.add(new SelectorCocktail());
+		list.add(new SelectorOddEven());
+		list.add(new SelectorComb());
+		//Gnome
+		list.add(new SelectorGnome());
+		//Merging
+		list.add(new SelectorMerge());
+		list.add(new SelectorStrand());
+		//Slow
+		list.add(new SelectorSlow());
+		list.add(new SelectorStooge());
+		
+		//Collections.sort(list);
+		sorts = list.toArray(sorts);
+	}
 	
 	public SortList()
 	{
@@ -28,32 +45,8 @@ public class SortList extends JList<String> {
 	}
 	
 	public SorterAbstract getSorter(VisualArray array)
-	{		
-		switch (getSelectedIndex())
-		{
-		case 0:
-			return new SorterSelection(array);
-		case 1:
-			return new SorterBubble(array);
-		case 2:
-			return new SorterCocktail(array);
-		case 3:
-			return new SorterOddEven(array);
-		case 4:
-			return new SorterGnome(array);
-		case 5:
-			return new SorterComb(array);
-		case 6:
-			return new SorterSlow(array);
-		case 7:
-			return new SorterStooge(array);
-		case 8:
-			return new SorterMerge(array);
-		case 9:
-			return new SorterStrand(array);
-		}
-		
-		return null;
+	{
+		return getSelectedValue().getSorter(array);
 	}
 
 }

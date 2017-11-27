@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -29,7 +30,8 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		setLayout(new BorderLayout());
 		//List
 		sortList = new SortList();
-		add(sortList, BorderLayout.SOUTH);
+		JScrollPane listScroll = new JScrollPane(sortList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		add(listScroll, BorderLayout.SOUTH);
 		//Sliders
 		JPanel sliders = new JPanel();
 		sliders.setLayout(new BorderLayout());
