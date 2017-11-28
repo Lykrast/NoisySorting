@@ -1,7 +1,6 @@
 package lykrast.noisysorting.ui;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JList;
@@ -9,7 +8,23 @@ import javax.swing.ListSelectionModel;
 
 import lykrast.noisysorting.sorting.VisualArray;
 import lykrast.noisysorting.sorting.sort.SorterAbstract;
-import lykrast.noisysorting.ui.selector.*;
+import lykrast.noisysorting.ui.selector.SelectorAbstract;
+import lykrast.noisysorting.ui.selector.SelectorBogo;
+import lykrast.noisysorting.ui.selector.SelectorBozo;
+import lykrast.noisysorting.ui.selector.SelectorBubble;
+import lykrast.noisysorting.ui.selector.SelectorCocktail;
+import lykrast.noisysorting.ui.selector.SelectorComb;
+import lykrast.noisysorting.ui.selector.SelectorGnome;
+import lykrast.noisysorting.ui.selector.SelectorInsertion;
+import lykrast.noisysorting.ui.selector.SelectorJ;
+import lykrast.noisysorting.ui.selector.SelectorMerge;
+import lykrast.noisysorting.ui.selector.SelectorOddEven;
+import lykrast.noisysorting.ui.selector.SelectorSelection;
+import lykrast.noisysorting.ui.selector.SelectorShuffle;
+import lykrast.noisysorting.ui.selector.SelectorSleep;
+import lykrast.noisysorting.ui.selector.SelectorSlow;
+import lykrast.noisysorting.ui.selector.SelectorStooge;
+import lykrast.noisysorting.ui.selector.SelectorStrand;
 
 public class SortList extends JList<SelectorAbstract> {
 	private static SelectorAbstract[] sorts = new SelectorAbstract[0];
@@ -19,6 +34,7 @@ public class SortList extends JList<SelectorAbstract> {
 		List<SelectorAbstract> list = new ArrayList<>();
 		//Basic
 		list.add(new SelectorSelection());
+		list.add(new SelectorInsertion());
 		list.add(new SelectorBubble());
 		//Bubble cousins
 		list.add(new SelectorCocktail());
