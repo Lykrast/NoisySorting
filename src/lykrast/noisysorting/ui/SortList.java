@@ -34,6 +34,7 @@ public class SortList extends JList<SelectorAbstract> {
 		//Hybrid
 		list.add(new SelectorJ());
 		//Slow
+		list.add(new SelectorSleep());
 		list.add(new SelectorSlow());
 		list.add(new SelectorStooge());
 		list.add(new SelectorBogo());
