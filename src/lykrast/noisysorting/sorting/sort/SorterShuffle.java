@@ -23,11 +23,6 @@ public class SorterShuffle extends SorterAbstract {
 	{
 		if (min >= max || isCancelled()) return;
 		int size = max - min + 1;
-		if (size == 2)
-		{
-			if (a.get(min) > a.get(max)) a.swap(min, max);
-			return;
-		}
 		
 		int keyN = (size)/KEY_NUMBER;
 		if (keyN < 1) keyN = 1;
