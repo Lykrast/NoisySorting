@@ -20,6 +20,8 @@ public class SortList extends JList<SelectorAbstract> {
 		list.add(new SelectorSelection());
 		list.add(new SelectorInsertion());
 		list.add(new SelectorBubble());
+		//Selection
+		list.add(new SelectorHeap());
 		//Bubble cousins
 		list.add(new SelectorCocktail());
 		list.add(new SelectorOddEven());
