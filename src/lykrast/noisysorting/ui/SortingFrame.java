@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import lykrast.noisysorting.sorting.VisualArray;
 
 public class SortingFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private VisualArray array;
 	private ArrayLabel arrayLabel;
 	private ArraySoundMaker soundMaker;

@@ -17,6 +17,7 @@ import lykrast.noisysorting.sorting.VAEventSingle;
 import lykrast.noisysorting.sorting.VisualArray;
 
 public class ArrayLabel extends JLabel implements Observer {
+	private static final long serialVersionUID = 1L;
 	private VisualArray array;
 	private Color[] colors;
 	private boolean[] changeNext;

@@ -11,6 +11,7 @@ import lykrast.noisysorting.sorting.sort.SorterAbstract;
 import lykrast.noisysorting.ui.selector.*;
 
 public class SortList extends JList<SelectorAbstract> {
+	private static final long serialVersionUID = 1L;
 	private static SelectorAbstract[] sorts = new SelectorAbstract[0];
 	
 	static

@@ -16,6 +16,7 @@ import lykrast.noisysorting.sorting.VisualArray;
 import lykrast.noisysorting.sorting.sort.SorterAbstract;
 
 public class OptionPanel extends JPanel implements ActionListener, ChangeListener {
+	private static final long serialVersionUID = 1L;
 	private SortingFrame parent;
 	private VisualArray array;
 	private JButton sort, shuffle, reverse, reset;

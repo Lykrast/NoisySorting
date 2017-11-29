@@ -87,7 +87,7 @@ public class VisualArray extends Observable {
 		{
 			array[i] = i+1;
 		}
-		setUpdated();
+		sortFinished();
 	}
 	
 	public void reverse()
@@ -97,7 +97,7 @@ public class VisualArray extends Observable {
 		{
 			swapSilent(i,size-i-1);
 		}
-		setUpdated();
+		sortFinished();
 	}
 	
 	public void shuffle()
