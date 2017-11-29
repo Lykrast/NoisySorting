@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
+import lykrast.noisysorting.ui.selector.SelectorBead;
 import lykrast.noisysorting.ui.selector.SelectorShuffle;
 
 public class SortListDistribution extends SortList {
@@ -14,6 +15,7 @@ public class SortListDistribution extends SortList {
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
 		list.add(new SelectorShuffle());
+		list.add(new SelectorBead());
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
