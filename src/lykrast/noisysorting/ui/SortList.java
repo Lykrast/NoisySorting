@@ -40,6 +40,7 @@ public class SortList extends JList<SelectorAbstract> {
 		list.add(new SelectorJ());
 		//Slow
 		list.add(new SelectorSleep());
+		list.add(new SelectorPancake());
 		list.add(new SelectorSlow());
 		list.add(new SelectorStooge());
 		list.add(new SelectorBogo());

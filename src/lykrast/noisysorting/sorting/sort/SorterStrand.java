@@ -25,6 +25,16 @@ public class SorterStrand extends SorterAbstract {
 			{
 				pos++;
 				a.swap(i, pos);
+				//Tentative of making it more faithful, makes it much slower though
+//				a.mark(pos);
+//				int j = i;
+//				while (j > pos)
+//				{
+//					a.swap(j, j-1);
+//					j--;
+//					sleep();
+//				}
+//				a.unmark(pos);
 			}
 			sleep();
 		}
@@ -45,6 +55,16 @@ public class SorterStrand extends SorterAbstract {
 				{
 					pos2++;
 					a.swap(i, pos2);
+					//Tentative of making it more faithful, makes it much slower though
+//					a.mark(pos2);
+//					int j = i;
+//					while (j > pos2)
+//					{
+//						a.swap(j, j-1);
+//						j--;
+//						sleep();
+//					}
+//					a.unmark(pos2);
 				}
 				sleep();
 			}
