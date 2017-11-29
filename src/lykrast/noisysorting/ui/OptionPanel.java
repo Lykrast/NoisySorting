@@ -9,7 +9,6 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -24,7 +23,7 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 	private JButton sort, shuffle, reset;
 	private JButton reverse, nearShuffle, cubic, minMax;
 	private JSlider speedSlider, sizeSlider, volumeSlider;
-	private SortList sortList;
+	private SortTabbedPane sortTabs;
 	private SorterAbstract sorter;
 	private ArraySoundMaker soundMaker;
 	
@@ -34,9 +33,8 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		array = a;
 		setLayout(new BorderLayout());
 		//List
-		sortList = new SortList();
-		JScrollPane listScroll = new JScrollPane(sortList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		add(listScroll, BorderLayout.CENTER);
+		sortTabs = new SortTabbedPane();
+		add(sortTabs, BorderLayout.CENTER);
 		//Soundmaker
 		soundMaker = new ArraySoundMaker(array, 100);
 		//Options
@@ -118,7 +116,7 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		if (event.getSource() == sort)
 		{
 			cancelSort();
-			sorter = sortList.getSorter(array);
+			sorter = sortTabs.getSorter(array);
 			sorter.execute();
 		}
 		else if (event.getSource() == shuffle)
