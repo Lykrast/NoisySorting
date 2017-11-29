@@ -90,6 +90,32 @@ public class VisualArray extends Observable {
 		sortFinished();
 	}
 	
+	public void fillCubic()
+	{
+		for (int i=0;i<size;i++)
+		{
+			//Scale to [-1;1]
+			double x = ((i+1.0)/size) * 2 - 1;
+			x = x*x*x;
+			//Scale back to array
+			int val = (int) (((x+1)/2) * size);
+			array[i] = val;
+		}
+		sortFinished();
+	}
+	
+	public void fillMinMax()
+	{
+		array[0] = 1;
+		array[size-1] = size;
+		int middle = (size + 1)/2;
+		for (int i=1;i<size-1;i++)
+		{
+			array[i] = middle;
+		}
+		sortFinished();
+	}
+	
 	public void reverse()
 	{
 		int middle = size / 2;
@@ -106,6 +132,16 @@ public class VisualArray extends Observable {
 		for (int i=size-1;i>0;i--)
 		{
 			swapSilent(i,rand.nextInt(i+1));
+		}
+		setUpdated();
+	}
+	
+	public void shuffleNear()
+	{
+		Random rand = new Random();
+		for (int i=0;i<size-4;i+=4)
+		{
+			for (int j=i+4;j>i;j--) swapSilent(j,rand.nextInt(j-i)+i);
 		}
 		setUpdated();
 	}

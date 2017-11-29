@@ -10,7 +10,6 @@ public class SortingFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private VisualArray array;
 	private ArrayLabel arrayLabel;
-	private ArraySoundMaker soundMaker;
 	private OptionPanel options;
 
 	public SortingFrame()
@@ -18,12 +17,11 @@ public class SortingFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800,600);
 		setLocationRelativeTo(null);
-		setName("Noisy Sorting");
+		setTitle("Noisy Sorting");
 		
 		array = new VisualArray(20);
 		arrayLabel = new ArrayLabel(array);
 		options = new OptionPanel(this, array);
-		soundMaker = new ArraySoundMaker(array);
 		
 		add(arrayLabel, BorderLayout.CENTER);
 		add(options, BorderLayout.EAST);
@@ -36,7 +34,6 @@ public class SortingFrame extends JFrame {
 		arrayLabel = new ArrayLabel(array);
 		add(arrayLabel);
 		options.setArray(array);
-		soundMaker = new ArraySoundMaker(array);
 		
 		revalidate();
 		repaint();

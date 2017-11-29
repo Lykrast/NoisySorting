@@ -22,24 +22,26 @@ public class ArraySoundMaker implements Observer {
 	private VisualArray array;
 	private MidiChannel[] mc;
 	private double scale;
+	private int volume;
 	private boolean[] releaseNext;
 	
-	public ArraySoundMaker(VisualArray array)
+	public ArraySoundMaker(VisualArray array, int vol)
 	{
+		this.array = array;
 		try {
 			synth = MidiSystem.getSynthesizer();
 			synth.open();
 			mc = synth.getChannels();
 			Instrument[] instr = synth.getDefaultSoundbank().getInstruments();
 			synth.loadInstrument(instr[0]);
+			this.array.addObserver(this);
 		} catch (MidiUnavailableException e) {
 			e.printStackTrace();
 		}
-		this.array = array;
-		this.array.addObserver(this);
 		scale = 127.0/array.getSize();
 		releaseNext = new boolean[128];
 		Arrays.fill(releaseNext, false);
+		volume = vol;
 	}
 
 	@Override
@@ -54,7 +56,7 @@ public class ArraySoundMaker implements Observer {
 			VAEventSingle event = (VAEventSingle)ev;
 			int note = (int) Math.round(array.getSilent(event.getIndex()) * scale);
 			note = 127 - note;
-			mc[0].noteOn(note, 600);
+			mc[0].noteOn(note, volume);
 			releaseNext[note] = true;
 		}
 		else if (ev instanceof VAEventMultiple)
@@ -77,6 +79,16 @@ public class ArraySoundMaker implements Observer {
 		{
 			mc[0].allNotesOff();
 		}
+	}
+	
+	public void cleanup()
+	{
+		synth.close();
+	}
+	
+	public void setVolume(int vol)
+	{
+		volume = vol;
 	}
 
 }

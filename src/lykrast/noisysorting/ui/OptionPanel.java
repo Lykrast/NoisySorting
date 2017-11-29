@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,60 +21,96 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 	private static final long serialVersionUID = 1L;
 	private SortingFrame parent;
 	private VisualArray array;
-	private JButton sort, shuffle, reverse, reset;
-	private JSlider speedSlider, sizeSlider;
+	private JButton sort, shuffle, reset;
+	private JButton reverse, nearShuffle, cubic, minMax;
+	private JSlider speedSlider, sizeSlider, volumeSlider;
 	private SortList sortList;
 	private SorterAbstract sorter;
+	private ArraySoundMaker soundMaker;
 	
 	public OptionPanel(SortingFrame frame, VisualArray a)
 	{
 		parent = frame;
-		setArray(a);
+		array = a;
 		setLayout(new BorderLayout());
 		//List
 		sortList = new SortList();
 		JScrollPane listScroll = new JScrollPane(sortList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		add(listScroll, BorderLayout.SOUTH);
-		//Sliders
-		JPanel sliders = new JPanel();
-		sliders.setLayout(new BorderLayout());
+		add(listScroll, BorderLayout.CENTER);
+		//Soundmaker
+		soundMaker = new ArraySoundMaker(array, 100);
+		//Options
+		JPanel options = new JPanel();
+		options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
+		//Buttons
+		//Top
+		JPanel buttonsTop = new JPanel();
+		buttonsTop.setLayout(new FlowLayout());
 		
+		sort = new JButton("Sort");
+		shuffle = new JButton("Shuffle");
+		reset = new JButton("Reset");
+		
+		sort.addActionListener(this);
+		shuffle.addActionListener(this);
+		reset.addActionListener(this);
+		
+		buttonsTop.add(sort);
+		buttonsTop.add(shuffle);
+		buttonsTop.add(reset);
+		
+		options.add(buttonsTop);
+		//Bottom
+		JPanel buttonsBot = new JPanel();
+		buttonsBot.setLayout(new FlowLayout());
+		
+		reverse = new JButton("Reverse");
+		nearShuffle = new JButton("Near Shuffle");
+		cubic = new JButton("Cubic");
+		minMax = new JButton("N-2 equal");
+		
+		reverse.addActionListener(this);
+		nearShuffle.addActionListener(this);
+		cubic.addActionListener(this);
+		minMax.addActionListener(this);
+		
+		buttonsBot.add(reverse);
+		buttonsBot.add(nearShuffle);
+		buttonsBot.add(cubic);
+		buttonsBot.add(minMax);
+		
+		options.add(buttonsBot);
+		//Sliders
+		//Speed
 		speedSlider = new JSlider(0, 1000, 100);
 		speedSlider.setMajorTickSpacing(100);
 		speedSlider.setMinorTickSpacing(10);
 		speedSlider.setPaintTicks(true);
 		speedSlider.setPaintLabels(true);
 		speedSlider.addChangeListener(this);
-		sliders.add(speedSlider, BorderLayout.NORTH);
+		speedSlider.setBorder(BorderFactory.createTitledBorder("Action delay (ms)"));
+		options.add(speedSlider);
 		
+		//Array Size
 		sizeSlider = new JSlider(0, 1000, 20);
 		sizeSlider.setMajorTickSpacing(100);
 		sizeSlider.setMinorTickSpacing(10);
 		sizeSlider.setPaintTicks(true);
 		sizeSlider.setPaintLabels(true);
-		sliders.add(sizeSlider, BorderLayout.SOUTH);
+		sizeSlider.setBorder(BorderFactory.createTitledBorder("Size of array"));
+		options.add(sizeSlider);
 		
-		add(sliders, BorderLayout.CENTER);
-		//Buttons
-		JPanel buttons = new JPanel();
-		buttons.setLayout(new FlowLayout());
+		//Sound Volume
+		volumeSlider = new JSlider(0, 100, 100);
+		volumeSlider.setMajorTickSpacing(10);
+		volumeSlider.setMinorTickSpacing(1);
+		volumeSlider.setPaintTicks(true);
+		volumeSlider.setPaintLabels(true);
+		volumeSlider.addChangeListener(this);
+		volumeSlider.setBorder(BorderFactory.createTitledBorder("Sound volume"));
+		options.add(volumeSlider);
 		
-		sort = new JButton("Sort");
-		shuffle = new JButton("Shuffle");
-		reverse = new JButton("Reverse");
-		reset = new JButton("Reset");
-		
-		sort.addActionListener(this);
-		shuffle.addActionListener(this);
-		reverse.addActionListener(this);
-		reset.addActionListener(this);
-		
-		buttons.add(sort);
-		buttons.add(shuffle);
-		buttons.add(reverse);
-		buttons.add(reset);
-		
-		add(buttons, BorderLayout.NORTH);
+		add(options, BorderLayout.NORTH);
 	}
 
 	@Override
@@ -88,17 +126,36 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 			cancelSort();
 			array.shuffle();
 		}
-		else if (event.getSource() == reverse)
-		{
-			cancelSort();
-			array.reverse();
-		}
 		else if (event.getSource() == reset)
 		{
 			cancelSort();
 			int newsize = Math.max(2, sizeSlider.getValue());
 			if (array.getSize() != newsize) parent.newArray(newsize);
 			else array.fill();
+		}
+		else if (event.getSource() == reverse)
+		{
+			cancelSort();
+			array.reverse();
+		}
+		else if (event.getSource() == nearShuffle)
+		{
+			cancelSort();
+			array.shuffleNear();
+		}
+		else if (event.getSource() == cubic)
+		{
+			cancelSort();
+			int newsize = Math.max(2, sizeSlider.getValue());
+			if (array.getSize() != newsize) parent.newArray(newsize);
+			array.fillCubic();
+		}
+		else if (event.getSource() == minMax)
+		{
+			cancelSort();
+			int newsize = Math.max(2, sizeSlider.getValue());
+			if (array.getSize() != newsize) parent.newArray(newsize);
+			array.fillMinMax();
 		}
 		
 	}
@@ -109,11 +166,17 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		{
 			SorterAbstract.setTimeout(speedSlider.getValue());
 		}
+		else if (event.getSource() == volumeSlider)
+		{
+			soundMaker.setVolume(volumeSlider.getValue());
+		}
 	}
 	
 	public void setArray(VisualArray a)
 	{
 		array = a;
+		if (soundMaker != null) soundMaker.cleanup();
+		soundMaker = new ArraySoundMaker(array, volumeSlider.getValue());
 	}
 	
 	private void cancelSort()
