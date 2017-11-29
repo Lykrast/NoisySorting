@@ -26,7 +26,7 @@ public class SorterQuickHoare extends SorterAbstract {
 	
 	private int partition(int min, int max)
 	{
-		//The pivot is not supposed to change, but using that allows better visualization
+		//The pivot is not supposed to change, but using index allows better visualization
 		int pivot = min;
 		int i = min;
 		int j = max;

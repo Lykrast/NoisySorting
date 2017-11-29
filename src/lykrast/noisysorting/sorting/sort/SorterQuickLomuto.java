@@ -26,6 +26,7 @@ public class SorterQuickLomuto extends SorterAbstract {
 	
 	private int partition(int min, int max)
 	{
+		//The pivot is not supposed to change, but using index allows better visualization
 		int pivot = max;
 		int j = min - 1;
 		
@@ -34,10 +35,10 @@ public class SorterQuickLomuto extends SorterAbstract {
 			//Mid-sort cancel
 			if (isCancelled()) return -1;
 			
-			if (a.get(i) < a.get(pivot))
+			if (a.get(i) <= a.get(pivot))
 			{
 				j++;
-				a.swap(j, i);
+				a.swap(i, j);
 			}
 			sleep();
 		}
