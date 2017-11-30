@@ -5,6 +5,7 @@ import java.util.List;
 
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
 import lykrast.noisysorting.ui.selector.SelectorBead;
+import lykrast.noisysorting.ui.selector.SelectorCounting;
 import lykrast.noisysorting.ui.selector.SelectorShuffle;
 
 public class SortListDistribution extends SortList {
@@ -14,6 +15,7 @@ public class SortListDistribution extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
+		list.add(new SelectorCounting());
 		list.add(new SelectorShuffle());
 		list.add(new SelectorBead());
 		
