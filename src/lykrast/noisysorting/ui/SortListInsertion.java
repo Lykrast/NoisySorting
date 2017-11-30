@@ -5,6 +5,7 @@ import java.util.List;
 
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
 import lykrast.noisysorting.ui.selector.SelectorInsertion;
+import lykrast.noisysorting.ui.selector.SelectorShell;
 
 public class SortListInsertion extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -14,6 +15,7 @@ public class SortListInsertion extends SortList {
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
 		list.add(new SelectorInsertion());
+		list.add(new SelectorShell());
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
