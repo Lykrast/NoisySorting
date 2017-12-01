@@ -48,7 +48,16 @@ public class SorterJ extends SorterAbstract {
 			if (a.get(i) >= a.get(pos))
 			{
 				pos++;
-				a.swap(i, pos);
+				//a.swap(i, pos);
+				//Cheaty way of visualizing the list extraction/insertion
+				int j = i;
+				while (j > pos)
+				{
+					a.swapSilent(j, j-1);
+					j--;
+				}
+				//Flash it for visualization
+				a.get(pos);
 			}
 			sleep();
 		}
@@ -68,7 +77,16 @@ public class SorterJ extends SorterAbstract {
 				if (a.get(i) >= a.get(pos2))
 				{
 					pos2++;
-					a.swap(i, pos2);
+					//a.swap(i, pos2);
+					//Cheaty way of visualizing the list extraction/insertion
+					int j = i;
+					while (j > pos2)
+					{
+						a.swapSilent(j, j-1);
+						j--;
+					}
+					//Flash it for visualization
+					a.get(pos2);
 				}
 				sleep();
 			}

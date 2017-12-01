@@ -24,17 +24,16 @@ public class SorterStrand extends SorterAbstract {
 			if (a.get(i) >= a.get(pos))
 			{
 				pos++;
-				a.swap(i, pos);
-				//Tentative of making it more faithful, makes it much slower though
-//				a.mark(pos);
-//				int j = i;
-//				while (j > pos)
-//				{
-//					a.swap(j, j-1);
-//					j--;
-//					sleep();
-//				}
-//				a.unmark(pos);
+				//a.swap(i, pos);
+				//Cheaty way of visualizing the list extraction/insertion
+				int j = i;
+				while (j > pos)
+				{
+					a.swapSilent(j, j-1);
+					j--;
+				}
+				//Flash it for visualization
+				a.get(pos);
 			}
 			sleep();
 		}
@@ -54,17 +53,16 @@ public class SorterStrand extends SorterAbstract {
 				if (a.get(i) >= a.get(pos2))
 				{
 					pos2++;
-					a.swap(i, pos2);
-					//Tentative of making it more faithful, makes it much slower though
-//					a.mark(pos2);
-//					int j = i;
-//					while (j > pos2)
-//					{
-//						a.swap(j, j-1);
-//						j--;
-//						sleep();
-//					}
-//					a.unmark(pos2);
+					//a.swap(i, pos2);
+					//Cheaty way of visualizing the list extraction/insertion
+					int j = i;
+					while (j > pos2)
+					{
+						a.swapSilent(j, j-1);
+						j--;
+					}
+					//Flash it for visualization
+					a.get(pos2);
 				}
 				sleep();
 			}
