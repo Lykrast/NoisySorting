@@ -5,6 +5,7 @@ import java.util.List;
 
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
 import lykrast.noisysorting.ui.selector.SelectorJ;
+import lykrast.noisysorting.ui.selector.SelectorTim;
 
 public class SortListHybrid extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -13,6 +14,7 @@ public class SortListHybrid extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
+		list.add(new SelectorTim());
 		list.add(new SelectorJ());
 		
 		//Collections.sort(list);
