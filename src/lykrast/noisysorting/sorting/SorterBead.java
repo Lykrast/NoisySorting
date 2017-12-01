@@ -13,8 +13,23 @@ public class SorterBead extends SorterAbstract {
 	@Override
 	protected Object doInBackground() throws Exception {
 		int size = a.getSize();
-		//A bit of cheating since the max of an array is always its size
-		boolean[][] beads = new boolean[size][size];
+		//Finding the maximum
+		int maxIndex = 0;
+		for (int i=0;i<size;i++)
+		{
+			//Mid-sort cancel
+			if (isCancelled())
+			{
+				a.sortFinished();
+				return null;
+			}
+			
+			if (a.get(i) > a.get(maxIndex)) maxIndex = i;
+			sleep();
+		}
+		
+		int max = a.getSilent(maxIndex);
+		boolean[][] beads = new boolean[size][max];
 		for (boolean[] b : beads)
 		{
 			Arrays.fill(b, false);
@@ -38,7 +53,7 @@ public class SorterBead extends SorterAbstract {
 			sorted = true;
 			for (int i=size-1;i>0;i--)
 			{
-				for (int j=0;j<size;j++)
+				for (int j=0;j<max;j++)
 				{
 					if (!beads[i][j] && beads[i-1][j])
 					{
