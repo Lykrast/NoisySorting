@@ -27,9 +27,9 @@ public class SortingFrame extends JFrame {
 		add(options, BorderLayout.EAST);
 	}
 	
-	public void newArray(int size)
+	public void newArray(VisualArray a)
 	{
-		array = new VisualArray(size);
+		array = a;
 		remove(arrayLabel);
 		arrayLabel = new ArrayLabel(array);
 		add(arrayLabel);

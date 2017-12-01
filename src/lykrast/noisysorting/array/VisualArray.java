@@ -9,12 +9,19 @@ public class VisualArray extends Observable {
 	private int size;
 	private int[] array;
 	private int[] marked;
+	private FillerAbstract filler;
 	
 	public VisualArray(int size)
+	{
+		this(size, new FillerLinear());
+	}
+	
+	public VisualArray(int size, FillerAbstract filler)
 	{
 		this.size = size;
 		array = new int[size];
 		marked = new int[size];
+		this.filler = filler;
 		fill();
 		clearMark();
 	}
@@ -83,37 +90,19 @@ public class VisualArray extends Observable {
 	
 	public void fill()
 	{
-		for (int i=0;i<size;i++)
-		{
-			array[i] = i+1;
-		}
+		filler.fill(array);
 		sortFinished();
 	}
 	
-	public void fillCubic()
+	public FillerAbstract getFiller()
 	{
-		for (int i=0;i<size;i++)
-		{
-			//Scale to [-1;1]
-			double x = ((i+1.0)/size) * 2 - 1;
-			x = x*x*x;
-			//Scale back to array
-			int val = (int) (((x+1)/2) * size);
-			array[i] = val;
-		}
-		sortFinished();
+		return filler;
 	}
 	
-	public void fillMinMax()
+	public void setFiller(FillerAbstract filler)
 	{
-		array[0] = 1;
-		array[size-1] = size;
-		int middle = (size + 1)/2;
-		for (int i=1;i<size-1;i++)
-		{
-			array[i] = middle;
-		}
-		sortFinished();
+		this.filler = filler;
+		fill();
 	}
 	
 	public void reverse()

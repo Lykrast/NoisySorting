@@ -13,6 +13,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import lykrast.noisysorting.array.FillerAbstract;
 import lykrast.noisysorting.array.VisualArray;
 import lykrast.noisysorting.sorting.SorterAbstract;
 
@@ -21,7 +22,8 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 	private SortingFrame parent;
 	private VisualArray array;
 	private JButton sort, shuffle, reset;
-	private JButton reverse, nearShuffle, cubic, minMax;
+	private JButton reverse, nearShuffle;
+	private FillerComboBox fillerCombo;
 	private JSlider speedSlider, sizeSlider, volumeSlider;
 	private SortTabbedPane sortTabs;
 	private SorterAbstract sorter;
@@ -64,20 +66,19 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		
 		reverse = new JButton("Reverse");
 		nearShuffle = new JButton("Near Shuffle");
-		cubic = new JButton("Cubic");
-		minMax = new JButton("N-2 equal");
 		
 		reverse.addActionListener(this);
 		nearShuffle.addActionListener(this);
-		cubic.addActionListener(this);
-		minMax.addActionListener(this);
 		
 		buttonsBot.add(reverse);
 		buttonsBot.add(nearShuffle);
-		buttonsBot.add(cubic);
-		buttonsBot.add(minMax);
 		
 		options.add(buttonsBot);
+		//Filler
+		fillerCombo = new FillerComboBox();
+		fillerCombo.setBorder(BorderFactory.createTitledBorder("Fill mode"));
+		
+		options.add(fillerCombo);
 		//Sliders
 		//Speed
 		speedSlider = new JSlider(0, 1000, 100);
@@ -128,7 +129,9 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		{
 			cancelSort();
 			int newsize = Math.max(2, sizeSlider.getValue());
-			if (array.getSize() != newsize) parent.newArray(newsize);
+			FillerAbstract newfiller = fillerCombo.getItemAt(fillerCombo.getSelectedIndex());
+			if (array.getSize() != newsize) parent.newArray(new VisualArray(newsize, newfiller));
+			else if (array.getFiller() != newfiller) array.setFiller(newfiller);
 			else array.fill();
 		}
 		else if (event.getSource() == reverse)
@@ -140,20 +143,6 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		{
 			cancelSort();
 			array.shuffleNear();
-		}
-		else if (event.getSource() == cubic)
-		{
-			cancelSort();
-			int newsize = Math.max(2, sizeSlider.getValue());
-			if (array.getSize() != newsize) parent.newArray(newsize);
-			array.fillCubic();
-		}
-		else if (event.getSource() == minMax)
-		{
-			cancelSort();
-			int newsize = Math.max(2, sizeSlider.getValue());
-			if (array.getSize() != newsize) parent.newArray(newsize);
-			array.fillMinMax();
 		}
 		
 	}
