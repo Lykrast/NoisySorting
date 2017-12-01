@@ -1,8 +1,8 @@
 package lykrast.noisysorting.ui.selector;
 
-import lykrast.noisysorting.sorting.VisualArray;
-import lykrast.noisysorting.sorting.sort.SorterAbstract;
-import lykrast.noisysorting.sorting.sort.SorterShell;
+import lykrast.noisysorting.array.VisualArray;
+import lykrast.noisysorting.sorting.SorterAbstract;
+import lykrast.noisysorting.sorting.SorterShell;
 
 public class SelectorShell extends SelectorAbstract {
 

@@ -3,8 +3,8 @@ package lykrast.noisysorting.ui;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
-import lykrast.noisysorting.sorting.VisualArray;
-import lykrast.noisysorting.sorting.sort.SorterAbstract;
+import lykrast.noisysorting.array.VisualArray;
+import lykrast.noisysorting.sorting.SorterAbstract;
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
 
 public abstract class SortList extends JList<SelectorAbstract> {

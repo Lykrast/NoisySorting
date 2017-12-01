@@ -1,7 +1,7 @@
 package lykrast.noisysorting.ui.selector;
 
-import lykrast.noisysorting.sorting.VisualArray;
-import lykrast.noisysorting.sorting.sort.SorterAbstract;
+import lykrast.noisysorting.array.VisualArray;
+import lykrast.noisysorting.sorting.SorterAbstract;
 
 public abstract class SelectorAbstract implements Comparable<SelectorAbstract> {
 	public SelectorAbstract() {}

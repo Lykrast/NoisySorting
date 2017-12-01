@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.swing.JTabbedPane;
 
-import lykrast.noisysorting.sorting.VisualArray;
-import lykrast.noisysorting.sorting.sort.SorterAbstract;
+import lykrast.noisysorting.array.VisualArray;
+import lykrast.noisysorting.sorting.SorterAbstract;
 
 public class SortTabbedPane extends JTabbedPane {
 	private static final long serialVersionUID = 1L;

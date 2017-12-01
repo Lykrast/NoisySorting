@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import lykrast.noisysorting.sorting.VisualArray;
+import lykrast.noisysorting.array.VisualArray;
 
 public class SortingFrame extends JFrame {
 	private static final long serialVersionUID = 1L;

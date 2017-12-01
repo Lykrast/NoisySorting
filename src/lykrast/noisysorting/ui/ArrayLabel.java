@@ -9,12 +9,12 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
-import lykrast.noisysorting.sorting.VAEventAbstract;
-import lykrast.noisysorting.sorting.VAEventClear;
-import lykrast.noisysorting.sorting.VAEventMultiple;
-import lykrast.noisysorting.sorting.VAEventRefresh;
-import lykrast.noisysorting.sorting.VAEventSingle;
-import lykrast.noisysorting.sorting.VisualArray;
+import lykrast.noisysorting.array.VAEventAbstract;
+import lykrast.noisysorting.array.VAEventClear;
+import lykrast.noisysorting.array.VAEventMultiple;
+import lykrast.noisysorting.array.VAEventRefresh;
+import lykrast.noisysorting.array.VAEventSingle;
+import lykrast.noisysorting.array.VisualArray;
 
 public class ArrayLabel extends JLabel implements Observer {
 	private static final long serialVersionUID = 1L;
