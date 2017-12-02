@@ -8,6 +8,7 @@ import lykrast.noisysorting.ui.selector.SelectorBead;
 import lykrast.noisysorting.ui.selector.SelectorCounting;
 import lykrast.noisysorting.ui.selector.SelectorRadixLSD;
 import lykrast.noisysorting.ui.selector.SelectorRadixMSD;
+import lykrast.noisysorting.ui.selector.SelectorRadixMSDInPlace;
 import lykrast.noisysorting.ui.selector.SelectorShuffle;
 
 public class SortListDistribution extends SortList {
@@ -20,6 +21,7 @@ public class SortListDistribution extends SortList {
 		list.add(new SelectorCounting());
 		list.add(new SelectorRadixLSD());
 		list.add(new SelectorRadixMSD());
+		list.add(new SelectorRadixMSDInPlace());
 		list.add(new SelectorShuffle());
 		list.add(new SelectorBead());
 		
