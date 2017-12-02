@@ -113,6 +113,7 @@ public class ArrayLabel extends JLabel implements Observer {
 			modified.fillRect((int)Math.ceil(startX + i*itemWidth) + itemPadding, (int)Math.ceil(startY + (size-ai)*itemHeight), 
 					(int)Math.floor(itemWidth) - itemPadding, (int)Math.floor(ai*itemHeight));
 		}
+		modified.dispose();
 	}
 
 }
