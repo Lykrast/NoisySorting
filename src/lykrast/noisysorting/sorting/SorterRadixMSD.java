@@ -37,7 +37,7 @@ public class SorterRadixMSD extends SorterAbstract {
 		
 		msdSort(0, a.getSize()-1, exp);
 
-		//a.sortFinished();
+		a.sortFinished();
 		return null;
 	}
 	
