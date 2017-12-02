@@ -9,6 +9,7 @@ import lykrast.noisysorting.array.FillerLinear;
 import lykrast.noisysorting.array.FillerN2Equal;
 import lykrast.noisysorting.array.FillerRandomGaussian;
 import lykrast.noisysorting.array.FillerRandomUniform;
+import lykrast.noisysorting.array.FillerWeaved;
 
 public class FillerComboBox extends JComboBox<FillerAbstract> {
 	private static final long serialVersionUID = 1L;
@@ -21,6 +22,7 @@ public class FillerComboBox extends JComboBox<FillerAbstract> {
 		addItem(new FillerN2Equal());
 		addItem(new FillerRandomUniform());
 		addItem(new FillerRandomGaussian());
+		addItem(new FillerWeaved());
 		setSelectedIndex(0);
 	}
 
