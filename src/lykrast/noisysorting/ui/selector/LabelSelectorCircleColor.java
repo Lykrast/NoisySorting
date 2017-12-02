@@ -2,14 +2,14 @@ package lykrast.noisysorting.ui.selector;
 
 import lykrast.noisysorting.array.VisualArray;
 import lykrast.noisysorting.ui.ArrayLabel;
-import lykrast.noisysorting.ui.ArrayLabelCircle;
+import lykrast.noisysorting.ui.ArrayLabelCircleColor;
 
-public class LabelSelectorCircle extends LabelSelectorAbstract {
+public class LabelSelectorCircleColor extends LabelSelectorAbstract {
 
 	@Override
 	public ArrayLabel getLabel(VisualArray a)
 	{
-		return new ArrayLabelCircle(a);
+		return new ArrayLabelCircleColor(a);
 	}
 	
 	@Override
@@ -20,7 +20,7 @@ public class LabelSelectorCircle extends LabelSelectorAbstract {
 
 	@Override
 	public boolean matches(ArrayLabel l) {
-		return l instanceof ArrayLabelCircle;
+		return l instanceof ArrayLabelCircleColor;
 	}
 
 }

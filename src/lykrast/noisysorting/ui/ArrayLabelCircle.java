@@ -8,17 +8,17 @@ import java.awt.geom.Arc2D;
 
 import lykrast.noisysorting.array.VisualArray;
 
-public class ArrayLabelCircle extends ArrayLabel {
+public abstract class ArrayLabelCircle extends ArrayLabel {
 	private static final long serialVersionUID = 1L;
 
-	public ArrayLabelCircle(VisualArray array)
-	{
+	public ArrayLabelCircle(VisualArray array) {
 		super(array);
 	}
-	
+
+	protected abstract Color getColor(int i);
+
 	@Override
-	protected void paintArray(Graphics g)
-	{
+	protected void paintArray(Graphics g) {
 		Rectangle bb = g.getClipBounds();
 		g.setColor(Color.BLACK);
 		g.fillRect(bb.x, bb.y, bb.width, bb.height);
@@ -29,25 +29,12 @@ public class ArrayLabelCircle extends ArrayLabel {
 		int startY = bb.y + 10;
 		int height = bb.height - 20;
 		double itemArc = -360.0/size;
-
+	
 		for (int i=0;i<array.getSize();i++)
 		{
 			g.setColor(getColor(i));
 			Arc2D arc = new Arc2D.Double(startX, startY, width, height, (itemArc * i) + 90, itemArc, Arc2D.PIE);
 			((Graphics2D)g).fill(arc);
-		}
-	}
-	
-	private Color getColor(int i)
-	{
-		switch (status[i])
-		{
-		case DEFAULT:
-			return new Color(Color.HSBtoRGB(array.getSilent(i)/(float)array.getSize(), 1.0F, 0.9F));
-		case MARKED:
-			return Color.WHITE;
-		default:
-			return Color.BLACK;
 		}
 	}
 
