@@ -5,6 +5,7 @@ import java.util.List;
 
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
 import lykrast.noisysorting.ui.selector.SelectorMerge;
+import lykrast.noisysorting.ui.selector.SelectorMerge3Way;
 import lykrast.noisysorting.ui.selector.SelectorStrand;
 
 public class SortListMerge extends SortList {
@@ -15,6 +16,7 @@ public class SortListMerge extends SortList {
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
 		list.add(new SelectorMerge());
+		list.add(new SelectorMerge3Way());
 		list.add(new SelectorStrand());
 		
 		//Collections.sort(list);
