@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
+import lykrast.noisysorting.ui.selector.SelectorCycle;
 import lykrast.noisysorting.ui.selector.SelectorHeap;
 import lykrast.noisysorting.ui.selector.SelectorSelection;
 import lykrast.noisysorting.ui.selector.SelectorSelectionDouble;
@@ -18,6 +19,7 @@ public class SortListSelection extends SortList {
 		list.add(new SelectorSelection());
 		list.add(new SelectorSelectionDouble());
 		list.add(new SelectorHeap());
+		list.add(new SelectorCycle());
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
