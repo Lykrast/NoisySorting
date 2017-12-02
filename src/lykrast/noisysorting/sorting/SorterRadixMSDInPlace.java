@@ -41,7 +41,6 @@ public class SorterRadixMSDInPlace extends SorterAbstract {
 	{
 		if (exp <= 0 || min >= max) return;
 		int pointerL = min, pointerR = max;
-		System.out.println(min + " - " + max + " | " + exp);
 		
 		a.mark(pointerR);
 		while (pointerL <= pointerR)
