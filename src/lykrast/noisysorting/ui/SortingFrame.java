@@ -5,12 +5,14 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import lykrast.noisysorting.array.VisualArray;
+import lykrast.noisysorting.ui.selector.LabelSelectorAbstract;
 
 public class SortingFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private VisualArray array;
 	private ArrayLabel arrayLabel;
 	private OptionPanel options;
+	private LabelComboBox labelCombo;
 
 	public SortingFrame()
 	{
@@ -20,7 +22,7 @@ public class SortingFrame extends JFrame {
 		setTitle("Noisy Sorting");
 		
 		array = new VisualArray(20);
-		arrayLabel = new ArrayLabel(array);
+		arrayLabel = new ArrayLabelBarsVertical(array);
 		options = new OptionPanel(this, array);
 		
 		add(arrayLabel, BorderLayout.CENTER);
@@ -31,12 +33,31 @@ public class SortingFrame extends JFrame {
 	{
 		array = a;
 		remove(arrayLabel);
-		arrayLabel = new ArrayLabel(array);
+		arrayLabel = labelCombo.getSelected().getLabel(array);
 		add(arrayLabel);
 		options.setArray(array);
 		
 		revalidate();
 		repaint();
+	}
+	
+	public void refreshDisplay()
+	{
+		LabelSelectorAbstract selector = labelCombo.getSelected();
+		if (!selector.matches(arrayLabel))
+		{
+			remove(arrayLabel);
+			arrayLabel = labelCombo.getSelected().getLabel(array);
+			add(arrayLabel);
+			
+			revalidate();
+			repaint();
+		}
+	}
+	
+	public void setLabelComboBox(LabelComboBox l)
+	{
+		labelCombo = l;
 	}
 
 }

@@ -24,6 +24,7 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 	private JButton sort, shuffle, reset;
 	private JButton reverse, nearShuffle;
 	private FillerComboBox fillerCombo;
+	private LabelComboBox labelCombo;
 	private JSlider speedSlider, sizeSlider, volumeSlider;
 	private SortTabbedPane sortTabs;
 	private SorterAbstract sorter;
@@ -74,11 +75,18 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		buttonsBot.add(nearShuffle);
 		
 		options.add(buttonsBot);
+		//Combo boxes
 		//Filler
 		fillerCombo = new FillerComboBox();
 		fillerCombo.setBorder(BorderFactory.createTitledBorder("Fill mode"));
 		
 		options.add(fillerCombo);
+		//Label
+		labelCombo = new LabelComboBox();
+		labelCombo.setBorder(BorderFactory.createTitledBorder("Display mode"));
+		parent.setLabelComboBox(labelCombo);
+		
+		options.add(labelCombo);
 		//Sliders
 		//Speed
 		speedSlider = new JSlider(0, 1000, 100);
@@ -129,10 +137,15 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		{
 			cancelSort();
 			int newsize = Math.max(2, sizeSlider.getValue());
-			FillerAbstract newfiller = fillerCombo.getItemAt(fillerCombo.getSelectedIndex());
+			FillerAbstract newfiller = fillerCombo.getSelected();
 			if (array.getSize() != newsize) parent.newArray(new VisualArray(newsize, newfiller));
-			else if (array.getFiller() != newfiller) array.setFiller(newfiller);
-			else array.fill();
+			else
+			{
+				if (array.getFiller() != newfiller) array.setFiller(newfiller);
+				else array.fill();
+				
+				parent.refreshDisplay();
+			}
 		}
 		else if (event.getSource() == reverse)
 		{

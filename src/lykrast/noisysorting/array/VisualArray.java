@@ -1,6 +1,5 @@
 package lykrast.noisysorting.array;
 
-import java.awt.Color;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Random;
@@ -28,14 +27,14 @@ public class VisualArray extends Observable {
 	
 	public int get(int index)
 	{
-		setUpdated(new VAEventSingle(index, Color.RED));
+		setUpdated(new VAEventSingle(index, VAItemStatus.SELECTED));
 		return array[index];
 	}
 	
 	public void set(int index, int value)
 	{
 		array[index] = value;
-		setUpdated(new VAEventSingle(index, Color.RED));
+		setUpdated(new VAEventSingle(index, VAItemStatus.CHANGED));
 	}
 	
 	public int getSilent(int index)
@@ -51,7 +50,7 @@ public class VisualArray extends Observable {
 	public void swap(int i, int j)
 	{
 		swapSilent(i, j);
-		setUpdated(new VAEventMultiple(new VAEventSingle(i, Color.RED), new VAEventSingle(j, Color.RED)));
+		setUpdated(new VAEventMultiple(new VAEventSingle(i, VAItemStatus.CHANGED), new VAEventSingle(j, VAItemStatus.CHANGED)));
 	}
 	
 	public void swapSilent(int i, int j)
@@ -68,14 +67,14 @@ public class VisualArray extends Observable {
 	public void mark(int index)
 	{
 		marked[index]++;
-		setUpdated(new VAEventSingle(index, Color.CYAN, false));
+		setUpdated(new VAEventSingle(index, VAItemStatus.MARKED, false));
 	}
 	
 	public void unmark(int index)
 	{
 		marked[index]--;
-		if (isMarked(index)) setUpdated(new VAEventSingle(index, Color.CYAN, false));
-		else setUpdated(new VAEventSingle(index, Color.WHITE, false));
+		if (isMarked(index)) setUpdated(new VAEventSingle(index, VAItemStatus.MARKED, false));
+		else setUpdated(new VAEventSingle(index, VAItemStatus.DEFAULT, false));
 	}
 	
 	private void clearMark()

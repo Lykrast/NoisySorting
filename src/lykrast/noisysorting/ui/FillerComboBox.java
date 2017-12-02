@@ -25,5 +25,10 @@ public class FillerComboBox extends JComboBox<FillerAbstract> {
 		addItem(new FillerWeaved());
 		setSelectedIndex(0);
 	}
+	
+	public FillerAbstract getSelected()
+	{
+		return getItemAt(getSelectedIndex());
+	}
 
 }

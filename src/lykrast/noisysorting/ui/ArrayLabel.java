@@ -1,8 +1,6 @@
 package lykrast.noisysorting.ui;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,20 +12,21 @@ import lykrast.noisysorting.array.VAEventClear;
 import lykrast.noisysorting.array.VAEventMultiple;
 import lykrast.noisysorting.array.VAEventRefresh;
 import lykrast.noisysorting.array.VAEventSingle;
+import lykrast.noisysorting.array.VAItemStatus;
 import lykrast.noisysorting.array.VisualArray;
 
-public class ArrayLabel extends JLabel implements Observer {
+public abstract class ArrayLabel extends JLabel implements Observer {
 	private static final long serialVersionUID = 1L;
-	private VisualArray array;
-	private Color[] colors;
-	private boolean[] changeNext;
+	protected VisualArray array;
+	protected VAItemStatus[] status;
+	protected boolean[] changeNext;
 	
 	public ArrayLabel(VisualArray array)
 	{
 		this.array = array;
-		colors = new Color[array.getSize()];
+		status = new VAItemStatus[array.getSize()];
 		changeNext = new boolean[array.getSize()];
-		Arrays.fill(colors, Color.WHITE);
+		Arrays.fill(status, VAItemStatus.DEFAULT);
 		Arrays.fill(changeNext, false);
 		array.addObserver(this);
 	}
@@ -41,9 +40,9 @@ public class ArrayLabel extends JLabel implements Observer {
 	{
 		this.array.deleteObserver(this);
 		this.array = array;
-		colors = new Color[array.getSize()];
+		status = new VAItemStatus[array.getSize()];
 		changeNext = new boolean[array.getSize()];
-		Arrays.fill(colors, Color.WHITE);
+		Arrays.fill(status, VAItemStatus.DEFAULT);
 		Arrays.fill(changeNext, false);
 		this.array.addObserver(this);
 	}
@@ -61,7 +60,7 @@ public class ArrayLabel extends JLabel implements Observer {
 		if (ev instanceof VAEventSingle)
 		{
 			VAEventSingle event = (VAEventSingle)ev;
-			colors[event.getIndex()] = event.getColor();
+			status[event.getIndex()] = event.getStatus();
 			if (event.isTemporary()) changeNext[event.getIndex()] = true;
 		}
 		else if (ev instanceof VAEventMultiple)
@@ -76,14 +75,14 @@ public class ArrayLabel extends JLabel implements Observer {
 				if (changeNext[i])
 				{
 					changeNext[i] = false;
-					if (array.isMarked(i)) colors[i] = Color.CYAN;
-					else colors[i] = Color.WHITE;
+					if (array.isMarked(i)) status[i] = VAItemStatus.MARKED;
+					else status[i] = VAItemStatus.DEFAULT;
 				}
 			}
 		}
 		else if (ev instanceof VAEventClear)
 		{
-			Arrays.fill(colors, Color.WHITE);
+			Arrays.fill(status, VAItemStatus.DEFAULT);
 			Arrays.fill(changeNext, false);
 		}
 	}
@@ -91,29 +90,11 @@ public class ArrayLabel extends JLabel implements Observer {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Rectangle bb = g.getClipBounds();
 		Graphics modified = g.create();
-		modified.setColor(Color.BLACK);
-		modified.fillRect(bb.x, bb.y, bb.width, bb.height);
-		
-		int size = array.getSize();
-		int startX = bb.x + 10;
-		int endX = bb.x + bb.width - 10;
-		int startY = bb.y + 10;
-		int endY = bb.y + bb.height - 10;
-		double itemWidth = (endX-startX)/(double)size;
-		double itemHeight = (endY-startY)/(double)size;
-		itemWidth = Math.max(1, itemWidth);
-		int itemPadding = itemWidth >= 3.0 ? 1 : 0;
-
-		for (int i=0;i<array.getSize();i++)
-		{
-			modified.setColor(colors[i]);
-			int ai = array.getSilent(i);
-			modified.fillRect((int)Math.ceil(startX + i*itemWidth) + itemPadding, (int)Math.ceil(startY + (size-ai)*itemHeight), 
-					(int)Math.floor(itemWidth) - itemPadding, (int)Math.floor(ai*itemHeight));
-		}
+		paintArray(modified);
 		modified.dispose();
 	}
+	
+	protected abstract void paintArray(Graphics g);
 
 }

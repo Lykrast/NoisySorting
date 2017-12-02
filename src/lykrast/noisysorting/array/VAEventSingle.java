@@ -1,21 +1,19 @@
 package lykrast.noisysorting.array;
 
-import java.awt.Color;
-
 public class VAEventSingle extends VAEventAbstract {
 	private int index;
-	private Color color;
+	private VAItemStatus status;
 	private boolean temporary;
 	
-	public VAEventSingle(int i, Color c)
+	public VAEventSingle(int i, VAItemStatus s)
 	{
-		this(i,c,true);
+		this(i,s,true);
 	}
 	
-	public VAEventSingle(int i, Color c, boolean temporary)
+	public VAEventSingle(int i, VAItemStatus s, boolean temporary)
 	{
 		index = i;
-		color = c;
+		status = s;
 		this.temporary = temporary;
 	}
 	
@@ -24,9 +22,9 @@ public class VAEventSingle extends VAEventAbstract {
 		return index;
 	}
 	
-	public Color getColor()
+	public VAItemStatus getStatus()
 	{
-		return color;
+		return status;
 	}
 	
 	public boolean isTemporary()
