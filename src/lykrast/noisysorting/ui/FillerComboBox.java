@@ -3,6 +3,7 @@ package lykrast.noisysorting.ui;
 import javax.swing.JComboBox;
 
 import lykrast.noisysorting.array.FillerAbstract;
+import lykrast.noisysorting.array.FillerAppended;
 import lykrast.noisysorting.array.FillerCubic;
 import lykrast.noisysorting.array.FillerCubicRoot;
 import lykrast.noisysorting.array.FillerLinear;
@@ -23,6 +24,7 @@ public class FillerComboBox extends JComboBox<FillerAbstract> {
 		addItem(new FillerRandomUniform());
 		addItem(new FillerRandomGaussian());
 		addItem(new FillerWeaved());
+		addItem(new FillerAppended());
 		setSelectedIndex(0);
 	}
 	
