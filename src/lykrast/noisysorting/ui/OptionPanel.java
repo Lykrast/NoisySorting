@@ -87,6 +87,11 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		parent.setLabelComboBox(labelCombo);
 		
 		options.add(labelCombo);
+		//Instruments
+		InstrumentComboBox instrumentCombo = soundMaker.getInstrumentBox();
+		instrumentCombo.setBorder(BorderFactory.createTitledBorder("Instrument"));
+		
+		options.add(instrumentCombo);
 		//Sliders
 		//Speed
 		speedSlider = new JSlider(0, 1000, 100);

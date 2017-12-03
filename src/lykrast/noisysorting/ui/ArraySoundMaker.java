@@ -1,5 +1,7 @@
 package lykrast.noisysorting.ui;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,13 +19,14 @@ import lykrast.noisysorting.array.VAEventRefresh;
 import lykrast.noisysorting.array.VAEventSingle;
 import lykrast.noisysorting.array.VisualArray;
 
-public class ArraySoundMaker implements Observer {
+public class ArraySoundMaker implements Observer, ItemListener {
 	private Synthesizer synth;
 	private VisualArray array;
 	private MidiChannel[] mc;
 	private double scale;
 	private int volume;
 	private boolean[] releaseNext;
+	private Instrument current;
 	
 	public ArraySoundMaker(VisualArray array, int vol)
 	{
@@ -32,8 +35,8 @@ public class ArraySoundMaker implements Observer {
 			synth = MidiSystem.getSynthesizer();
 			synth.open();
 			mc = synth.getChannels();
-			Instrument[] instr = synth.getDefaultSoundbank().getInstruments();
-			synth.loadInstrument(instr[0]);
+			Instrument[] instr = synth.getAvailableInstruments();
+			loadInstrument(instr[0]);
 			this.array.addObserver(this);
 		} catch (MidiUnavailableException e) {
 			e.printStackTrace();
@@ -42,6 +45,29 @@ public class ArraySoundMaker implements Observer {
 		releaseNext = new boolean[128];
 		Arrays.fill(releaseNext, false);
 		volume = vol;
+	}
+	
+	public void loadInstrument(Instrument i)
+	{
+		if (current != null) synth.unloadInstrument(current);
+		current = i;
+		synth.loadInstrument(current);
+		mc[0].programChange(current.getPatch().getProgram());
+	}
+	
+	public InstrumentComboBox getInstrumentBox()
+	{
+		InstrumentComboBox box = new InstrumentComboBox(synth);
+		box.addItemListener(this);
+		return box;
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED)
+		{
+			loadInstrument((Instrument)e.getItem());
+		}
 	}
 
 	@Override
@@ -77,6 +103,7 @@ public class ArraySoundMaker implements Observer {
 		}
 		else if (ev instanceof VAEventClear)
 		{
+			Arrays.fill(releaseNext, false);
 			mc[0].allNotesOff();
 		}
 	}
