@@ -75,6 +75,16 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		buttonsBot.add(nearShuffle);
 		
 		options.add(buttonsBot);
+		//Speed
+		speedSlider = new JSlider(0, 1000, 100);
+		speedSlider.setMajorTickSpacing(100);
+		speedSlider.setMinorTickSpacing(10);
+		speedSlider.setPaintTicks(true);
+		speedSlider.setPaintLabels(true);
+		speedSlider.addChangeListener(this);
+		speedSlider.setBorder(BorderFactory.createTitledBorder("Action delay (ms)"));
+		options.add(speedSlider);
+		
 		//Combo boxes
 		//Filler
 		fillerCombo = new FillerComboBox();
@@ -87,21 +97,6 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		parent.setLabelComboBox(labelCombo);
 		
 		options.add(labelCombo);
-		//Instruments
-		InstrumentComboBox instrumentCombo = soundMaker.getInstrumentBox();
-		instrumentCombo.setBorder(BorderFactory.createTitledBorder("Instrument"));
-		
-		options.add(instrumentCombo);
-		//Sliders
-		//Speed
-		speedSlider = new JSlider(0, 1000, 100);
-		speedSlider.setMajorTickSpacing(100);
-		speedSlider.setMinorTickSpacing(10);
-		speedSlider.setPaintTicks(true);
-		speedSlider.setPaintLabels(true);
-		speedSlider.addChangeListener(this);
-		speedSlider.setBorder(BorderFactory.createTitledBorder("Action delay (ms)"));
-		options.add(speedSlider);
 		
 		//Array Size
 		sizeSlider = new JSlider(0, 1000, 20);
@@ -111,6 +106,13 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		sizeSlider.setPaintLabels(true);
 		sizeSlider.setBorder(BorderFactory.createTitledBorder("Size of array"));
 		options.add(sizeSlider);
+		
+		//Sound stuff
+		//Instruments
+		InstrumentComboBox instrumentCombo = soundMaker.getInstrumentBox();
+		instrumentCombo.setBorder(BorderFactory.createTitledBorder("Instrument"));
+		
+		options.add(instrumentCombo);
 		
 		//Sound Volume
 		volumeSlider = new JSlider(0, 100, 100);
