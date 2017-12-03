@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
+import lykrast.noisysorting.ui.selector.SelectorCombInsertion;
 import lykrast.noisysorting.ui.selector.SelectorJ;
 import lykrast.noisysorting.ui.selector.SelectorTim;
 
@@ -14,6 +15,7 @@ public class SortListHybrid extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
+		list.add(new SelectorCombInsertion());
 		list.add(new SelectorTim());
 		list.add(new SelectorJ());
 		
