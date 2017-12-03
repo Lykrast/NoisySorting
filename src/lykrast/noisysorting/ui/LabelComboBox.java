@@ -9,6 +9,7 @@ import lykrast.noisysorting.ui.selector.LabelSelectorCircleColor;
 import lykrast.noisysorting.ui.selector.LabelSelectorCircleGrey;
 import lykrast.noisysorting.ui.selector.LabelSelectorCurve;
 import lykrast.noisysorting.ui.selector.LabelSelectorDots;
+import lykrast.noisysorting.ui.selector.LabelSelectorMosaic;
 
 public class LabelComboBox extends JComboBox<LabelSelectorAbstract> {
 	private static final long serialVersionUID = 1L;
@@ -21,6 +22,7 @@ public class LabelComboBox extends JComboBox<LabelSelectorAbstract> {
 		addItem(new LabelSelectorCurve());
 		addItem(new LabelSelectorCircleGrey());
 		addItem(new LabelSelectorCircleColor());
+		addItem(new LabelSelectorMosaic());
 		setSelectedIndex(0);
 	}
 	
