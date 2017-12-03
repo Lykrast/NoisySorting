@@ -24,6 +24,7 @@ public class SorterMerge3Way extends SorterAbstract {
 		int mid1 = min + (size/3);
 		int mid2 = min + 2 * (size/3) + 1;
 		//No idea why it sometimes gets out of the array, but that fixes it
+		mid1 = Math.max(1, mid1);
 		mid2 = Math.min(a.getSize()-1, mid2);
 		mergeSort3(min,mid1-1);
 		mergeSort3(mid1,mid2-1);
