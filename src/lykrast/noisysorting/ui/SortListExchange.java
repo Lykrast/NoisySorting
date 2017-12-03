@@ -10,6 +10,7 @@ import lykrast.noisysorting.ui.selector.SelectorBubble;
 import lykrast.noisysorting.ui.selector.SelectorCocktail;
 import lykrast.noisysorting.ui.selector.SelectorComb;
 import lykrast.noisysorting.ui.selector.SelectorGnome;
+import lykrast.noisysorting.ui.selector.SelectorMergeExchange;
 import lykrast.noisysorting.ui.selector.SelectorOddEven;
 import lykrast.noisysorting.ui.selector.SelectorPancake;
 import lykrast.noisysorting.ui.selector.SelectorQuickHoare;
@@ -28,6 +29,7 @@ public class SortListExchange extends SortList {
 		list.add(new SelectorCocktail());
 		list.add(new SelectorOddEven());
 		list.add(new SelectorComb());
+		list.add(new SelectorMergeExchange());
 		list.add(new SelectorGnome());
 		list.add(new SelectorQuickLomuto());
 		list.add(new SelectorQuickHoare());
