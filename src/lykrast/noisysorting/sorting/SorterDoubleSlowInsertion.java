@@ -29,14 +29,27 @@ public class SorterDoubleSlowInsertion extends SorterAbstract {
 		dsiSort(min+1,max-1);
 		a.unmark(min);
 		a.unmark(max);
-		
+
+		//Mid-sort cancel
+		if (isCancelled()) return;
 		if (a.get(min) > a.get(max)) a.swap(min, max);
 		sleep();
 
-		if (a.get(min) > a.get(min+1)) a.swap(min, min+1);
-		if (a.get(max-1) > a.get(max)) a.swap(max-1, max);
+		//Mid-sort cancel
+		if (isCancelled()) return;
+		boolean change = false;
+		if (a.get(min) > a.get(min+1))
+		{
+			change = true;
+			a.swap(min, min+1);
+		}
+		if (a.get(max-1) > a.get(max))
+		{
+			change = true;
+			a.swap(max-1, max);
+		}
 		sleep();
-		dsiSort(min+1,max-1);
+		if (change) dsiSort(min+1,max-1);
 	}
 
 }
