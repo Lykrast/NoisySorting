@@ -39,17 +39,40 @@ public class SorterAmericanFlag extends SorterAbstract {
 	
 	private void americanFlagSort(int start, int end, int digit)
 	{
-		if (start > end || start >= a.getSize()) return;
+		//Mid-sort cancel
+		if (start > end || start >= a.getSize() || isCancelled()) return;
 		int[] offsets = computeOffsets(start, end, digit);
 		americanSwap(offsets, start, end, digit);
 		if (digit > 0)
 		{
 			for (int i=0;i<RADIX-1;i++)
 			{
+				markValid(offsets[i]+start);
+				markValid(offsets[i+1]+start-1);
+			}
+			markValid(offsets[RADIX-1]+start);
+			markValid(end-1);
+			
+			for (int i=0;i<RADIX-1;i++)
+			{
 				americanFlagSort(offsets[i]+start, offsets[i+1]+start, digit-1);
+				unmarkValid(offsets[i]+start);
+				unmarkValid(offsets[i+1]+start-1);
 			}
 			americanFlagSort(offsets[RADIX-1]+start, end, digit-1);
+			unmarkValid(offsets[RADIX-1]+start);
+			unmarkValid(end-1);
 		}
+	}
+	
+	private void markValid(int index)
+	{
+		if (index < a.getSize()) a.mark(index);
+	}
+	
+	private void unmarkValid(int index)
+	{
+		if (index < a.getSize()) a.unmark(index);
 	}
 	
 	private int[] computeOffsets(int start, int end, int digit)
@@ -59,6 +82,9 @@ public class SorterAmericanFlag extends SorterAbstract {
 		
 		for (int i=start;i<end;i++)
 		{
+			//Mid-sort cancel
+			if (isCancelled()) return null;
+			
 			counts[getRadixVal(a.get(i), digit)]++;
 			sleep();
 		}
@@ -76,6 +102,7 @@ public class SorterAmericanFlag extends SorterAbstract {
 	
 	private void americanSwap(int[] offsets, int start, int end, int digit)
 	{
+		if (isCancelled() || offsets == null) return;
 		int i = start;
 		int[] nextFree = Arrays.copyOf(offsets, RADIX);
 		int currentBlock = 0;
@@ -86,7 +113,9 @@ public class SorterAmericanFlag extends SorterAbstract {
 				currentBlock++;
 				continue;
 			}
-			
+
+			//Mid-sort cancel
+			if (isCancelled()) return;
 			int val = getRadixVal(a.get(i), digit);
 			sleep();
 			if (val == currentBlock)
@@ -94,7 +123,9 @@ public class SorterAmericanFlag extends SorterAbstract {
 				i++;
 				continue;
 			}
-			
+
+			//Mid-sort cancel
+			if (isCancelled()) return;
 			int swap = nextFree[val] + start;
 			a.swap(i, swap);
 			nextFree[val]++;
