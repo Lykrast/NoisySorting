@@ -20,9 +20,9 @@ public class ArrayLabelCircleColor extends ArrayLabelCircle {
 		case DEFAULT:
 			return new Color(Color.HSBtoRGB(array.getSilent(i)/(float)array.getSize(), 1.0F, 0.9F));
 		case MARKED:
-			return Color.WHITE;
+			return new Color(Color.HSBtoRGB(array.getSilent(i)/(float)array.getSize(), 0.25F, 1.0F));
 		default:
-			return Color.BLACK;
+			return new Color(Color.HSBtoRGB(array.getSilent(i)/(float)array.getSize(), 0.25F, 0.25F));
 		}
 	}
 
