@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
+import lykrast.noisysorting.ui.selector.SelectorAmericanFlag;
 import lykrast.noisysorting.ui.selector.SelectorBead;
 import lykrast.noisysorting.ui.selector.SelectorCounting;
 import lykrast.noisysorting.ui.selector.SelectorRadixLSD;
@@ -22,6 +23,7 @@ public class SortListDistribution extends SortList {
 		list.add(new SelectorRadixLSD());
 		list.add(new SelectorRadixMSD());
 		list.add(new SelectorRadixMSDInPlace());
+		list.add(new SelectorAmericanFlag());
 		list.add(new SelectorShuffle());
 		list.add(new SelectorBead());
 		
