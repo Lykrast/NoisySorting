@@ -8,6 +8,7 @@ import lykrast.noisysorting.ui.selector.SelectorMerge;
 import lykrast.noisysorting.ui.selector.SelectorMerge3Way;
 import lykrast.noisysorting.ui.selector.SelectorMergeBottomUp;
 import lykrast.noisysorting.ui.selector.SelectorStrand;
+import lykrast.noisysorting.ui.selector.SelectorSwapInsertionMerge;
 
 public class SortListMerge extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -20,6 +21,7 @@ public class SortListMerge extends SortList {
 		list.add(new SelectorMergeBottomUp());
 		list.add(new SelectorMerge3Way());
 		list.add(new SelectorStrand());
+		list.add(new SelectorSwapInsertionMerge());
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
