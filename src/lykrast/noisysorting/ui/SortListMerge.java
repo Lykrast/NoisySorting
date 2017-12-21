@@ -7,6 +7,8 @@ import lykrast.noisysorting.ui.selector.SelectorAbstract;
 import lykrast.noisysorting.ui.selector.SelectorMerge;
 import lykrast.noisysorting.ui.selector.SelectorMerge3Way;
 import lykrast.noisysorting.ui.selector.SelectorMergeBottomUp;
+import lykrast.noisysorting.ui.selector.SelectorMergeInPlace;
+import lykrast.noisysorting.ui.selector.SelectorMergeInPlaceNaive;
 import lykrast.noisysorting.ui.selector.SelectorStrand;
 import lykrast.noisysorting.ui.selector.SelectorSwapInsertionMerge;
 
@@ -20,6 +22,8 @@ public class SortListMerge extends SortList {
 		list.add(new SelectorMerge());
 		list.add(new SelectorMergeBottomUp());
 		list.add(new SelectorMerge3Way());
+		list.add(new SelectorMergeInPlaceNaive());
+		list.add(new SelectorMergeInPlace());
 		list.add(new SelectorStrand());
 		list.add(new SelectorSwapInsertionMerge());
 		
