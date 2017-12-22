@@ -25,6 +25,7 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 	private JButton reverse, nearShuffle;
 	private FillerComboBox fillerCombo;
 	private LabelComboBox labelCombo;
+	private InstrumentComboBox instrumentCombo;
 	private JSlider speedSlider, sizeSlider, volumeSlider;
 	private SortTabbedPane sortTabs;
 	private SorterAbstract sorter;
@@ -109,7 +110,7 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		
 		//Sound stuff
 		//Instruments
-		InstrumentComboBox instrumentCombo = soundMaker.getInstrumentBox();
+		instrumentCombo = soundMaker.getInstrumentBox();
 		instrumentCombo.setBorder(BorderFactory.createTitledBorder("Instrument"));
 		
 		options.add(instrumentCombo);
@@ -184,6 +185,7 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		array = a;
 		if (soundMaker != null) soundMaker.cleanup();
 		soundMaker = new ArraySoundMaker(array, volumeSlider.getValue());
+		instrumentCombo.changeSoundMaker(soundMaker);
 	}
 	
 	private void cancelSort()
