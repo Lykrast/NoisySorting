@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lykrast.noisysorting.ui.selector.SelectorAbstract;
+import lykrast.noisysorting.ui.selector.SelectorBalanced;
 import lykrast.noisysorting.ui.selector.SelectorBatcher;
 import lykrast.noisysorting.ui.selector.SelectorBitonic;
 import lykrast.noisysorting.ui.selector.SelectorBoseNelson;
@@ -22,6 +23,7 @@ public class SortListMisc extends SortList {
 		list.add(new SelectorHibbard());
 		list.add(new SelectorBitonic());
 		list.add(new SelectorBatcher());
+		list.add(new SelectorBalanced());
 		list.add(new SelectorSleep());
 		list.add(new SelectorPancake());
 		
