@@ -9,17 +9,12 @@ public class SorterStooge extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		stoogeSort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void stoogeSort(int min, int max)
+	private void stoogeSort(int min, int max) throws InterruptedException
 	{
-		//Mid-sort cancel
-		if (isCancelled()) return;
-		
 		a.mark(min);
 		a.mark(max);
 		if (a.get(min) > a.get(max)) a.swap(min, max);

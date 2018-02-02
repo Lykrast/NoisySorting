@@ -14,33 +14,22 @@ public class SorterAmericanFlag extends SorterAbstract {
 
 	//From https://en.wikipedia.org/wiki/American_flag_sort
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		//Finding the maximum
 		int maxIndex = 0;
 		for (int i=0;i<a.getSize();i++)
-		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
+		{			
 			if (a.get(i) > a.get(maxIndex)) maxIndex = i;
 			sleep();
 		}
 		
 		int digit = (int)Math.floor(Math.log(a.getSilent(maxIndex))/Math.log(RADIX));
 		americanFlagSort(0, a.getSize(), digit);
-
-		a.sortFinished();
-		return null;
 	}
 	
-	private void americanFlagSort(int start, int end, int digit)
+	private void americanFlagSort(int start, int end, int digit) throws InterruptedException
 	{
-		//Mid-sort cancel
-		if (start > end || start >= a.getSize() || isCancelled()) return;
+		if (start > end || start >= a.getSize()) return;
 		int[] offsets = computeOffsets(start, end, digit);
 		americanSwap(offsets, start, end, digit);
 		if (digit > 0)
@@ -75,16 +64,13 @@ public class SorterAmericanFlag extends SorterAbstract {
 		if (index < a.getSize()) a.unmark(index);
 	}
 	
-	private int[] computeOffsets(int start, int end, int digit)
+	private int[] computeOffsets(int start, int end, int digit) throws InterruptedException
 	{
 		int[] counts = new int[RADIX];
 		Arrays.fill(counts, 0);
 		
 		for (int i=start;i<end;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return null;
-			
 			counts[getRadixVal(a.get(i), digit)]++;
 			sleep();
 		}
@@ -100,9 +86,9 @@ public class SorterAmericanFlag extends SorterAbstract {
 		return offsets;
 	}
 	
-	private void americanSwap(int[] offsets, int start, int end, int digit)
+	private void americanSwap(int[] offsets, int start, int end, int digit) throws InterruptedException
 	{
-		if (isCancelled() || offsets == null) return;
+		if (offsets == null) return;
 		int i = start;
 		int[] nextFree = Arrays.copyOf(offsets, RADIX);
 		int currentBlock = 0;
@@ -113,9 +99,7 @@ public class SorterAmericanFlag extends SorterAbstract {
 				currentBlock++;
 				continue;
 			}
-
-			//Mid-sort cancel
-			if (isCancelled()) return;
+			
 			int val = getRadixVal(a.get(i), digit);
 			sleep();
 			if (val == currentBlock)
@@ -123,9 +107,7 @@ public class SorterAmericanFlag extends SorterAbstract {
 				i++;
 				continue;
 			}
-
-			//Mid-sort cancel
-			if (isCancelled()) return;
+			
 			int swap = nextFree[val] + start;
 			a.swap(i, swap);
 			nextFree[val]++;

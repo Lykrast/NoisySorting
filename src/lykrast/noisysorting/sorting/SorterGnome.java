@@ -9,19 +9,12 @@ public class SorterGnome extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		int pos = 0;
 		
 		while (pos < size)
-		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
+		{			
 			if (pos == 0 || a.get(pos) >= a.get(pos-1))
 			{
 				pos++;
@@ -33,9 +26,6 @@ public class SorterGnome extends SorterAbstract {
 			}
 			sleep();
 		}
-		
-		a.sortFinished();
-		return null;
 	}
 
 }

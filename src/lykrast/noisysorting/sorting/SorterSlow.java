@@ -9,16 +9,14 @@ public class SorterSlow extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		slowSort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void slowSort(int min, int max)
+	private void slowSort(int min, int max) throws InterruptedException
 	{
 		//Mid-sort cancel
-		if (min >= max || isCancelled()) return;
+		if (min >= max) return;
 		int middle = (min+max)/2;
 		a.mark(max);
 		a.mark(middle);

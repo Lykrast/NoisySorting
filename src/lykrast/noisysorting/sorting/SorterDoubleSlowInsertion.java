@@ -9,16 +9,14 @@ public class SorterDoubleSlowInsertion extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		dsiSort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void dsiSort(int min, int max)
+	private void dsiSort(int min, int max) throws InterruptedException
 	{
 		//Mid-sort cancel
-		if (min >= max || isCancelled()) return;
+		if (min >= max) return;
 		
 		if (a.get(min) > a.get(max)) a.swap(min, max);
 		sleep();
@@ -29,14 +27,10 @@ public class SorterDoubleSlowInsertion extends SorterAbstract {
 		dsiSort(min+1,max-1);
 		a.unmark(min);
 		a.unmark(max);
-
-		//Mid-sort cancel
-		if (isCancelled()) return;
+		
 		if (a.get(min) > a.get(max)) a.swap(min, max);
 		sleep();
 
-		//Mid-sort cancel
-		if (isCancelled()) return;
 		boolean change = false;
 		if (a.get(min) > a.get(min+1))
 		{

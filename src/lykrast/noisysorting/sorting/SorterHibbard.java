@@ -10,7 +10,7 @@ public class SorterHibbard extends SorterAbstract {
 
 	//https://metacpan.org/source/JGAMBLE/Algorithm-Networksort-2.01/lib/Algorithm/Networksort.pm
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		int lastBit = 1 << (int)Math.ceil(Math.log(a.getSize()-1)/Math.log(2));
 		
@@ -18,7 +18,6 @@ public class SorterHibbard extends SorterAbstract {
 		sort:
 		while (true)
 		{
-			System.out.println(x + " <-> " + y);
 			swapChecked(x, y);
 			
 			int bit = 1;
@@ -47,7 +46,6 @@ public class SorterHibbard extends SorterAbstract {
 				continue;
 			}
 
-			System.out.println("do");
 			do
 			{
 				if (bit == lastBit) break sort;
@@ -70,16 +68,10 @@ public class SorterHibbard extends SorterAbstract {
 			x &= ~bit;
 			y |= bit;
 		}
-		
-		a.sortFinished();
-		return null;
 	}
 	
-	private void swapChecked(int i, int j)
+	private void swapChecked(int i, int j) throws InterruptedException
 	{
-		//Mid-sort cancel
-		if (isCancelled()) return;
-		
 		if (a.get(i) > a.get(j)) a.swap(i, j);
 		sleep();
 	}

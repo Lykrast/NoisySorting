@@ -14,15 +14,13 @@ public class SorterJ extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		jSort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void jSort(int min, int max)
+	private void jSort(int min, int max) throws InterruptedException
 	{
-		if (min >= max || isCancelled()) return;
+		if (min >= max) return;
 		int size = max - min + 1;
 		if (size == 2)
 		{
@@ -32,19 +30,12 @@ public class SorterJ extends SorterAbstract {
 		else shuffleSort(min, max);
 	}
 	
-	private void strandSort(int min, int max)
+	private void strandSort(int min, int max) throws InterruptedException
 	{
 		int size = max - min + 1;
 		int pos = min;
 		for (int i=min+1;i<size;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return;
-			}
-			
 			if (a.get(i) >= a.get(pos))
 			{
 				pos++;
@@ -67,13 +58,6 @@ public class SorterJ extends SorterAbstract {
 			int pos2 = pos+1;
 			for (int i=pos+2;i<min+size;i++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return;
-				}
-				
 				if (a.get(i) >= a.get(pos2))
 				{
 					pos2++;
@@ -98,12 +82,6 @@ public class SorterJ extends SorterAbstract {
 			int pointerL = min, pointerR = pos+1;
 			for (int i=min;i<=pos2;i++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return;
-				}
 				if (pointerL <= pos && (pointerR > pos2 || a.get(pointerL) <= a.get(pointerR)))
 				{
 					temp[i] = a.get(pointerL);
@@ -121,13 +99,6 @@ public class SorterJ extends SorterAbstract {
 			
 			for (int i=min;i<=pos2;i++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return;
-				}
-				
 				a.set(i, temp[i]);
 				sleep();
 			}
@@ -138,7 +109,7 @@ public class SorterJ extends SorterAbstract {
 		}
 	}
 	
-	private void shuffleSort(int min, int max)
+	private void shuffleSort(int min, int max) throws InterruptedException
 	{
 		int size = max - min + 1;
 		int keyN = (size)/KEY_NUMBER;
@@ -155,9 +126,6 @@ public class SorterJ extends SorterAbstract {
 		//Fill the buckets
 		for (int i=min+keyN;i<=max;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			//First bucket
 			if (a.get(i) < a.get(min))
 			{
@@ -179,9 +147,6 @@ public class SorterJ extends SorterAbstract {
 				
 				while (j > 1)
 				{
-					//Mid-sort cancel
-					if (isCancelled()) return;
-					
 					int midK = (minK + maxK)/2;
 					
 					if (a.get(i) < a.get(min+midK))
@@ -211,15 +176,9 @@ public class SorterJ extends SorterAbstract {
 
 		int pos = min;
 		for (int i=0;i<keyN;i++)
-		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
+		{			
 			for (int j=0;j<pointers[i];j++)
-			{
-				//Mid-sort cancel
-				if (isCancelled()) return;
-				
+			{				
 				a.set(pos, buckets[i][j]);
 				pos++;
 				sleep();
@@ -232,10 +191,7 @@ public class SorterJ extends SorterAbstract {
 		}
 		
 		for (int j=0;j<pointers[keyN];j++)
-		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
+		{			
 			a.set(pos, buckets[keyN][j]);
 			pos++;
 			sleep();
@@ -244,9 +200,6 @@ public class SorterJ extends SorterAbstract {
 		jSort(min, keyPos[0]-1);
 		for (int i=0;i<keyN-1;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-
 			jSort(keyPos[i]+1, keyPos[i+1]-1);
 			a.unmark(keyPos[i]);
 		}

@@ -9,7 +9,7 @@ public class SorterBingo extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		int min;
 		int minIndex = 0;
@@ -18,14 +18,7 @@ public class SorterBingo extends SorterAbstract {
 		
 		//Finding the first minimum
 		for (int j=1;j<size;j++)
-		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
+		{			
 			if (a.get(j) < a.get(minIndex))
 			{
 				minIndex = j;
@@ -34,14 +27,7 @@ public class SorterBingo extends SorterAbstract {
 		}
 		min = a.getSilent(minIndex);
 		while (insert < size && a.get(insert) == min)
-		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
+		{		
 			a.unmark(insert);
 			insert++;
 			a.mark(insert);
@@ -53,14 +39,7 @@ public class SorterBingo extends SorterAbstract {
 			//Storing the index for better visualization
 			minIndex = insert;
 			for (int j=insert+1;j<size;j++)
-			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
+			{				
 				if (a.get(j) == min)
 				{
 					a.unmark(insert);
@@ -78,14 +57,7 @@ public class SorterBingo extends SorterAbstract {
 				sleep();
 			}
 			while (insert < size && a.get(insert) == min)
-			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
+			{				
 				a.unmark(insert);
 				insert++;
 				a.mark(insert);
@@ -93,9 +65,6 @@ public class SorterBingo extends SorterAbstract {
 			}
 			min = a.getSilent(minIndex);
 		}
-
-		a.sortFinished();
-		return null;
 	}
 
 }

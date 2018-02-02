@@ -13,18 +13,11 @@ public class SorterRadixMSD extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		//Finding the maximum
 		int maxIndex = 0;
 		for (int i=0;i<a.getSize();i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
 			if (a.get(i) > a.get(maxIndex)) maxIndex = i;
 			sleep();
 		}
@@ -36,12 +29,9 @@ public class SorterRadixMSD extends SorterAbstract {
 		exp /= RADIX;
 		
 		msdSort(0, a.getSize()-1, exp);
-
-		a.sortFinished();
-		return null;
 	}
 	
-	private void msdSort(int min, int max, int exp)
+	private void msdSort(int min, int max, int exp) throws InterruptedException
 	{
 		if (exp <= 0 || min >= max) return;
 		int size = max - min + 1;
@@ -53,9 +43,6 @@ public class SorterRadixMSD extends SorterAbstract {
 		
 		for (int i=min;i<=max;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			counts[(a.get(i)/exp) % RADIX]++;
 			sleep();
 		}
@@ -79,9 +66,6 @@ public class SorterRadixMSD extends SorterAbstract {
 		//Copying to visible array
 		for (int i=min;i<=max;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.set(i, tmp[i-min]);
 			sleep();
 		}

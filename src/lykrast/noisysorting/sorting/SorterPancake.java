@@ -9,7 +9,7 @@ public class SorterPancake extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		
 		for (int i=size;i>1;i--)
@@ -17,13 +17,6 @@ public class SorterPancake extends SorterAbstract {
 			int maxIndex = 0;
 			for (int j=1;j<i;j++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
 				if (a.get(j) > a.get(maxIndex)) maxIndex = j;
 				sleep();
 			}
@@ -37,20 +30,14 @@ public class SorterPancake extends SorterAbstract {
 			
 			flip(i);
 		}
-
-		a.sortFinished();
-		return null;
 	}
 	
-	private void flip(int max)
+	private void flip(int max) throws InterruptedException
 	{
 		a.mark(max-1);
 		int middle = max / 2;
 		for (int i=0;i<middle;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.swap(i,max-i-1);
 			sleep();
 		}

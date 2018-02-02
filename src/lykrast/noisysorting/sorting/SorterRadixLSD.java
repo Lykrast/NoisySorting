@@ -14,18 +14,11 @@ public class SorterRadixLSD extends SorterAbstract {
 
 	//From http://www.geeksforgeeks.org/radix-sort/
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		//Finding the maximum
 		int maxIndex = 0;
 		for (int i=0;i<a.getSize();i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
 			if (a.get(i) > a.get(maxIndex)) maxIndex = i;
 			sleep();
 		}
@@ -33,12 +26,9 @@ public class SorterRadixLSD extends SorterAbstract {
 		int max = a.getSilent(maxIndex);
 		for (int exp=1;max/exp>0;exp*=RADIX)
 			countSort(exp);
-
-		a.sortFinished();
-		return null;
 	}
 	
-	private void countSort(int exp)
+	private void countSort(int exp) throws InterruptedException
 	{
 		int size = a.getSize();
 		int[] counts = new int[RADIX];
@@ -46,9 +36,6 @@ public class SorterRadixLSD extends SorterAbstract {
 		
 		for (int i=0;i<size;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			counts[(a.get(i)/exp) % RADIX]++;
 			sleep();
 		}
@@ -67,9 +54,6 @@ public class SorterRadixLSD extends SorterAbstract {
 		//Copying to visible array
 		for (int i=0;i<size;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.set(i, tmp[i]);
 			sleep();
 		}

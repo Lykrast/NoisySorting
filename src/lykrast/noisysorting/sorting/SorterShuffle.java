@@ -13,15 +13,13 @@ public class SorterShuffle extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		shuffleSort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void shuffleSort(int min, int max)
+	private void shuffleSort(int min, int max) throws InterruptedException
 	{
-		if (min >= max || isCancelled()) return;
+		if (min >= max) return;
 		int size = max - min + 1;
 		
 		int keyN = (size)/KEY_NUMBER;
@@ -37,10 +35,7 @@ public class SorterShuffle extends SorterAbstract {
 
 		//Fill the buckets
 		for (int i=min+keyN;i<=max;i++)
-		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
+		{			
 			//First bucket
 			if (a.get(i) < a.get(min))
 			{
@@ -62,9 +57,6 @@ public class SorterShuffle extends SorterAbstract {
 				
 				while (j > 1)
 				{
-					//Mid-sort cancel
-					if (isCancelled()) return;
-					
 					int midK = (minK + maxK)/2;
 					
 					if (a.get(i) < a.get(min+midK))
@@ -95,14 +87,8 @@ public class SorterShuffle extends SorterAbstract {
 		int pos = min;
 		for (int i=0;i<keyN;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			for (int j=0;j<pointers[i];j++)
 			{
-				//Mid-sort cancel
-				if (isCancelled()) return;
-				
 				a.set(pos, buckets[i][j]);
 				pos++;
 				sleep();
@@ -116,9 +102,6 @@ public class SorterShuffle extends SorterAbstract {
 		
 		for (int j=0;j<pointers[keyN];j++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.set(pos, buckets[keyN][j]);
 			pos++;
 			sleep();
@@ -127,9 +110,6 @@ public class SorterShuffle extends SorterAbstract {
 		shuffleSort(min, keyPos[0]-1);
 		for (int i=0;i<keyN-1;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-
 			shuffleSort(keyPos[i]+1, keyPos[i+1]-1);
 			a.unmark(keyPos[i]);
 		}

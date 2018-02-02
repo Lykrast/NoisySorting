@@ -11,19 +11,12 @@ public class SorterCounting extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		//Finding the maximum
 		int maxIndex = 0;
 		for (int i=0;i<size;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
 			if (a.get(i) > a.get(maxIndex)) maxIndex = i;
 			sleep();
 		}
@@ -33,14 +26,7 @@ public class SorterCounting extends SorterAbstract {
 		Arrays.fill(counts, 0);
 		
 		for (int i=0;i<size;i++)
-		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
+		{			
 			counts[a.get(i)]++;
 			sleep();
 		}
@@ -59,19 +45,9 @@ public class SorterCounting extends SorterAbstract {
 		//Copying to visible array
 		for (int i=0;i<size;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
 			a.set(i, tmp[i]);
 			sleep();
 		}
-
-		a.sortFinished();
-		return null;
 	}
 
 }

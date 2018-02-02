@@ -10,16 +10,14 @@ public class SorterMergeInPlaceNaive extends SorterAbstract {
 
 	//https://github.com/liuxinyu95/AlgoXY/blob/algoxy/sorting/merge-sort/src/mergesort.c
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		mergeSort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void mergeSort(int min, int max)
+	private void mergeSort(int min, int max) throws InterruptedException
 	{
 		//Mid-sort cancel
-		if (min >= max || isCancelled()) return;
+		if (min >= max) return;
 		int middle = (min+max)/2;
 		mergeSort(min,middle);
 		mergeSort(middle+1,max);
@@ -30,17 +28,11 @@ public class SorterMergeInPlaceNaive extends SorterAbstract {
 		a.mark(m);
 		while (l < m && m <= max)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			if (a.get(l) > a.get(m))
 			{
 				sleep();
 				for (int i=m;i>l;i--)
 				{
-					//Mid-sort cancel
-					if (isCancelled()) return;
-					
 					a.swap(i, i-1);
 					sleep();
 				}

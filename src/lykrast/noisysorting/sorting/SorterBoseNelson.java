@@ -10,25 +10,20 @@ public class SorterBoseNelson extends SorterAbstract {
 
 	//http://collaboration.cmc.ec.gc.ca/science/rpn/biblio/ddj/Website/articles/CUJ/1993/9302/hegeman/list1.htm
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		split(0, a.getSize());
-		a.sortFinished();
-		return null;
 	}
 	
-	private void swapChecked(int i, int j)
+	private void swapChecked(int i, int j) throws InterruptedException
 	{
-		//Mid-sort cancel
-		if (isCancelled()) return;
-		
 		if (a.get(i) > a.get(j)) a.swap(i, j);
 		sleep();
 	}
 	
-	private void split(int start, int len)
+	private void split(int start, int len) throws InterruptedException
 	{
 		//Mid-sort cancel
-		if (len <= 1 || isCancelled()) return;
+		if (len <= 1) return;
 		
 		int mid = len/2;
 		split(start, mid);
@@ -36,11 +31,8 @@ public class SorterBoseNelson extends SorterAbstract {
 		merge(start, mid, start+mid, len-mid);
 	}
 	
-	private void merge(int start1, int len1, int start2, int len2)
+	private void merge(int start1, int len1, int start2, int len2) throws InterruptedException
 	{
-		//Mid-sort cancel
-		if (isCancelled()) return;
-		
 		if (len1 == 1 && len2 == 1) swapChecked(start1, start2);
 		else if (len1 == 1 && len2 == 2)
 		{

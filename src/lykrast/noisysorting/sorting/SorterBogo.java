@@ -11,26 +11,16 @@ public class SorterBogo extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		Random rand = new Random();
 		while (!isSorted())
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-
 			for (int i=a.getSize()-1;i>0;i--)
 			{
 				a.swap(i,rand.nextInt(i+1));
 			}
 			sleep();
 		}
-		
-		a.sortFinished();
-		return null;
 	}
 	
 	private boolean isSorted()

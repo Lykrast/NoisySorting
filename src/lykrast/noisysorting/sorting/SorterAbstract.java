@@ -13,11 +13,25 @@ public abstract class SorterAbstract extends SwingWorker<Object, Object> {
 		super();
 		a = array;
 	}
-
-	protected void sleep() {
+	
+	@Override
+	protected Object doInBackground() throws Exception {
 		try {
-			Thread.sleep(timeout);
-		} catch (InterruptedException e) {}
+			sort();
+		}
+		catch (InterruptedException e) {
+			cleanup();
+		}
+		
+		a.sortFinished();
+		return null;
+	}
+	
+	protected abstract void sort() throws InterruptedException;
+	protected void cleanup() {}
+
+	protected void sleep() throws InterruptedException {
+		Thread.sleep(timeout);
 		a.sendRefresh();
 	}
 	

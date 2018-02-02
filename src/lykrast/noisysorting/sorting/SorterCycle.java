@@ -9,7 +9,7 @@ public class SorterCycle extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		
 		for (int start=0;start<size;start++)
@@ -18,13 +18,6 @@ public class SorterCycle extends SorterAbstract {
 			a.mark(pos);
 			for (int i=start+1;i<size;i++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
 				if (a.get(i) < a.get(start))
 				{
 					a.unmark(pos);
@@ -42,13 +35,6 @@ public class SorterCycle extends SorterAbstract {
 			
 			while (a.get(start) == a.get(pos))
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
 				a.unmark(pos);
 				pos++;
 				a.mark(pos);
@@ -65,13 +51,6 @@ public class SorterCycle extends SorterAbstract {
 				a.mark(pos);
 				for (int i=start+1;i<size;i++)
 				{
-					//Mid-sort cancel
-					if (isCancelled())
-					{
-						a.sortFinished();
-						return null;
-					}
-					
 					if (a.get(i) < a.get(start))
 					{
 						a.unmark(pos);
@@ -89,13 +68,6 @@ public class SorterCycle extends SorterAbstract {
 				
 				while (a.get(start) == a.get(pos))
 				{
-					//Mid-sort cancel
-					if (isCancelled())
-					{
-						a.sortFinished();
-						return null;
-					}
-					
 					a.unmark(pos);
 					pos++;
 					a.mark(pos);
@@ -107,9 +79,6 @@ public class SorterCycle extends SorterAbstract {
 				sleep();
 			}
 		}
-
-		a.sortFinished();
-		return null;
 	}
 
 }

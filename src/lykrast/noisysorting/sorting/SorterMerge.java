@@ -9,16 +9,12 @@ public class SorterMerge extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		mergeSort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void mergeSort(int min, int max)
+	private void mergeSort(int min, int max) throws InterruptedException
 	{
-		//Mid-sort cancel
-		if (min >= max || isCancelled()) return;
 		int middle = (min+max)/2;
 		mergeSort(min,middle);
 		mergeSort(middle+1,max);
@@ -30,8 +26,6 @@ public class SorterMerge extends SorterAbstract {
 		int pointerL = min, pointerR = middle+1;
 		for (int i=min;i<=max;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
 			if (pointerL <= middle && (pointerR > max || a.get(pointerL) <= a.get(pointerR)))
 			{
 				temp[i-min] = a.get(pointerL);
@@ -49,9 +43,6 @@ public class SorterMerge extends SorterAbstract {
 		
 		for (int i=min;i<=max;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.set(i, temp[i-min]);
 			sleep();
 		}

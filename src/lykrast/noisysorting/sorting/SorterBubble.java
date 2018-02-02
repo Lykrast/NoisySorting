@@ -9,7 +9,7 @@ public class SorterBubble extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		boolean sorted;
 		
@@ -18,13 +18,6 @@ public class SorterBubble extends SorterAbstract {
 			
 			for (int i=0;i<size-1;i++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
 				if (a.get(i) > a.get(i+1))
 				{
 					sorted = false;
@@ -33,9 +26,6 @@ public class SorterBubble extends SorterAbstract {
 				sleep();
 			}
 		}while (!sorted);
-		
-		a.sortFinished();
-		return null;
 	}
 
 }

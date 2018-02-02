@@ -9,53 +9,33 @@ public class SorterHeap extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int end = a.getSize() - 1;
 		
 		//Heapify
 		int start = parent(end);
 		while (start >= 0)
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
 			siftDown(start,end);
 			start--;
 		}
 		
 		while (end > 0)
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
 			a.swap(0, end);
 			sleep();
 
 			end--;
 			siftDown(0,end);
 		}
-		
-		a.sortFinished();
-		return null;
 	}
 	
-	private void siftDown(int min, int max)
+	private void siftDown(int min, int max) throws InterruptedException
 	{
 		int root = min;
 		
 		while (leftChild(root) <= max)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			int child = leftChild(root);
 			int swap = root;
 			

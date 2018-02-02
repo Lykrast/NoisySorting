@@ -5,66 +5,47 @@ import lykrast.noisysorting.array.VisualArray;
 public class SorterSleep extends SorterAbstract {
 	private final int[] shadow;
 	private int shadowPointer;
+	private Sleeper[] sleepers;
+	private boolean sorting;
 	
 	public SorterSleep(VisualArray array)
 	{
 		super(array);
 		shadow = new int[a.getSize()];
 		shadowPointer = 0;
+		sorting = false;
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
-		Sleeper[] sleepers = new Sleeper[a.getSize()];
+	protected void sort() throws InterruptedException {
+		sleepers = new Sleeper[a.getSize()];
 		
 		for (int i=0;i<a.getSize();i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				cleanup(sleepers);
-				return null;
-			}
-			
 			sleepers[i] = new Sleeper(i);
 			sleep();
 		}
 		
+		sorting = true; 
 		for (Sleeper s : sleepers) s.start();
 		
 		for (Sleeper s : sleepers)
-		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				cleanup(sleepers);
-				return null;
-			}
-			
+		{			
 			s.join();
 		}
+		sorting = false;
 		
 		for (int i=0;i<a.getSize();i++)
-		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sendRefresh();
-				return null;
-			}
-			
+		{			
 			a.set(i, shadow[i]);
 			sleep();
 		}
-
-		a.sortFinished();
-		return null;
 	}
 	
-	private void cleanup(Sleeper[] sleepers)
+	@Override
+	protected void cleanup()
 	{
-		for (Sleeper s : sleepers) if (s != null) s.interrupt();
-		a.sortFinished();
+		if (sorting) for (Sleeper s : sleepers) s.interrupt();
 	}
 	
 	private synchronized void append(int index)
@@ -87,10 +68,8 @@ public class SorterSleep extends SorterAbstract {
 		public void run() {
 			try {
 				sleep(value * timeout);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			append(index);
+				append(index);
+			} catch (InterruptedException e) {}
 		}
 	}
 

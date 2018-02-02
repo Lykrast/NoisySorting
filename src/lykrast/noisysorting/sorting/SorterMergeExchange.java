@@ -11,7 +11,7 @@ public class SorterMergeExchange extends SorterAbstract {
 	//From Donald Knuth, The Art of Computer Programming, vol. 3 : Sorting and Searching
 	//Algorithm M page 111
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		int t, p;
 		//Find lowest t such that 2^t >= size
@@ -23,14 +23,7 @@ public class SorterMergeExchange extends SorterAbstract {
 			while (true)
 			{
 				for (int i=0;i<size-d;i++)
-				{
-					//Mid-sort cancel
-					if (isCancelled())
-					{
-						a.sortFinished();
-						return null;
-					}
-					
+				{					
 					if ((i & p) == r)
 					{
 						if (a.get(i) > a.get(i+d)) a.swap(i, i+d);
@@ -47,9 +40,6 @@ public class SorterMergeExchange extends SorterAbstract {
 				}
 			}
 		}
-		
-		a.sortFinished();
-		return null;
 	}
 
 }

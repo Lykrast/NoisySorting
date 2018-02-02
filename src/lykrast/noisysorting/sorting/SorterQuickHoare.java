@@ -9,22 +9,20 @@ public class SorterQuickHoare extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		quicksort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void quicksort(int min, int max)
+	private void quicksort(int min, int max) throws InterruptedException
 	{
-		if (min >= max || isCancelled()) return;
+		if (min >= max) return;
 		
 		int p = partition(min,max);
 		quicksort(min, p);
 		quicksort(p+1,max);
 	}
 	
-	private int partition(int min, int max)
+	private int partition(int min, int max) throws InterruptedException
 	{
 		//The pivot is not supposed to change, but using index allows better visualization
 		int pivot = min;
@@ -35,9 +33,6 @@ public class SorterQuickHoare extends SorterAbstract {
 		{
 			while (a.get(i) < a.get(pivot))
 			{
-				//Mid-sort cancel
-				if (isCancelled()) return -1;
-				
 				i++;
 				sleep();
 			}
@@ -46,17 +41,11 @@ public class SorterQuickHoare extends SorterAbstract {
 			
 			while (a.get(j) > a.get(pivot))
 			{
-				//Mid-sort cancel
-				if (isCancelled()) return -1;
-				
 				j--;
 				sleep();
 			}
 			//Only sleep here if no change was made before
 			if (j == max) sleep();
-
-			//Mid-sort cancel
-			if (isCancelled()) return -1;
 			
 			if (i >= j) return j;
 			

@@ -10,16 +10,14 @@ public class SorterMergeInPlace extends SorterAbstract {
 
 	//https://github.com/liuxinyu95/AlgoXY/blob/algoxy/sorting/merge-sort/src/mergesort.c
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		imsort(0, a.getSize());
-		a.sortFinished();
-		return null;
 	}
 	
-	private void imsort(int l, int u)
+	private void imsort(int l, int u) throws InterruptedException
 	{
 		//Mid-sort cancel
-		if (u - l <= 1 || isCancelled()) return;
+		if (u - l <= 1) return;
 		int m = l + (u - l) / 2;
 		int w = l + u - m;
 		
@@ -35,9 +33,6 @@ public class SorterMergeInPlace extends SorterAbstract {
 		{
 			for (m = n; m < u && a.get(m) < a.get(m-1); m++)
 			{
-				//Mid-sort cancel
-				if (isCancelled()) return;
-				
 				a.swap(m, m-1);
 				sleep();
 			}
@@ -45,7 +40,7 @@ public class SorterMergeInPlace extends SorterAbstract {
 	}
 	
 	//Sort [l, u[ and put result in w
-	private void wsort(int l, int u, int w)
+	private void wsort(int l, int u, int w) throws InterruptedException
 	{
 		if (u - l > 1)
 		{
@@ -58,9 +53,6 @@ public class SorterMergeInPlace extends SorterAbstract {
 		{
 			while (l < u)
 			{
-				//Mid-sort cancel
-				if (isCancelled()) return;
-				
 				a.swap(l, w);
 				l++;
 				w++;
@@ -70,13 +62,10 @@ public class SorterMergeInPlace extends SorterAbstract {
 	}
 	
 	//Merge [i, m[ and [j, n[ into [w...]
-	private void wmerge(int i, int m, int j, int n, int w)
+	private void wmerge(int i, int m, int j, int n, int w) throws InterruptedException
 	{
 		while (i < m && j < n)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			if (a.get(i) < a.get(j))
 			{
 				a.swap(i, w);
@@ -92,9 +81,6 @@ public class SorterMergeInPlace extends SorterAbstract {
 		}
 		while (i < m)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.swap(i, w);
 			i++;
 			w++;
@@ -102,9 +88,6 @@ public class SorterMergeInPlace extends SorterAbstract {
 		}
 		while (j < n)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.swap(j, w);
 			j++;
 			w++;

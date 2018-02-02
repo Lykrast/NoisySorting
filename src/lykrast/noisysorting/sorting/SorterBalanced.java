@@ -10,7 +10,7 @@ public class SorterBalanced extends SorterAbstract {
 
 	//https://metacpan.org/source/JGAMBLE/Algorithm-Networksort-2.01/lib/Algorithm/Networksort.pm
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int t = (int)Math.ceil(Math.log(a.getSize()-1)/Math.log(2));
 		
 		for (int k=0;k<t;k++)
@@ -20,28 +20,17 @@ public class SorterBalanced extends SorterAbstract {
 				for (int i = 0; i < 1 << t; i += power)
 				{
 					for (int j = 0; j < power/2; j++)
-					{
-						//Mid-sort cancel
-						if (isCancelled())
-						{
-							a.sortFinished();
-							return null;
-						}
-						
+					{						
 						swapChecked(i+j, i+power-j-1);
 					}
 				}
 			}
 		}
-		
-		a.sortFinished();
-		return null;
 	}
 	
-	private void swapChecked(int i, int j)
+	private void swapChecked(int i, int j) throws InterruptedException
 	{
-		//Mid-sort cancel
-		if (i >= a.getSize() || j >= a.getSize() || isCancelled()) return;
+		if (i >= a.getSize() || j >= a.getSize()) return;
 		
 		if (a.get(i) > a.get(j)) a.swap(i, j);
 		sleep();

@@ -13,7 +13,7 @@ public class SorterTim extends SorterAbstract {
 	// https://www.infopulse.com/blog/timsort-sorting-algorithm/
 	// https://hg.python.org/cpython/file/tip/Objects/listsort.txt
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		//Calculation of the Minrun.
 		int minrun = getMinrun(size);
@@ -23,14 +23,7 @@ public class SorterTim extends SorterAbstract {
 		Stack<Run> stack = new Stack<>();
 		int pos = 0;
 		while (pos != -1 && pos < size-1)
-		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
+		{			
 			int end = findRun(pos, minrun);
 			stack.push(new Run(pos, end));
 			pos = end+1;
@@ -38,9 +31,6 @@ public class SorterTim extends SorterAbstract {
 			mergeStack(stack);
 		}
 		mergeForce(stack);
-		
-		a.sortFinished();
-		return null;
 	}
 	
 	private int getMinrun(int n)
@@ -56,7 +46,7 @@ public class SorterTim extends SorterAbstract {
 	
 	//Finds a run and return right after where it ends
 	//-1 when we get out of the array
-	private int findRun(int pos, int minrun)
+	private int findRun(int pos, int minrun) throws InterruptedException
 	{
 		//2 size runs are already sorted, so we end here
 		if (pos >= a.getSize()-2) return a.getSize()-1;
@@ -80,42 +70,33 @@ public class SorterTim extends SorterAbstract {
 		return end;
 	}
 	
-	private int findRunAscending(int pos)
+	private int findRunAscending(int pos) throws InterruptedException
 	{
 		while (pos <= a.getSize()-2 && a.get(pos+1) >= a.get(pos))
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return -1;
-			
 			pos++;
 			sleep();
 		}
 		return pos;
 	}
 	
-	private int findRunDescending(int pos)
+	private int findRunDescending(int pos) throws InterruptedException
 	{
 		while (pos <= a.getSize()-2 && a.get(pos+1) < a.get(pos))
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return -1;
-			
 			pos++;
 			sleep();
 		}
 		return pos;
 	}
 	
-	private void flip(int min, int max)
+	private void flip(int min, int max) throws InterruptedException
 	{
 		a.mark(min);
 		a.mark(max);
 		int middle = (max + min) / 2;
 		for (int i=min;i<=middle;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.swap(i,max+min-i);
 			sleep();
 		}
@@ -123,23 +104,17 @@ public class SorterTim extends SorterAbstract {
 		a.unmark(max);
 	}
 	
-	private void insertionSort(int min, int max)
+	private void insertionSort(int min, int max) throws InterruptedException
 	{
 		a.mark(min);
 		a.mark(max);
 		for (int i=min+1;i<=max;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.mark(i);
 			int j = i;
 			
 			while (j > min && a.get(j-1) > a.get(j))
 			{
-				//Mid-sort cancel
-				if (isCancelled()) return;
-				
 				a.swap(j, j-1);
 				j--;
 				sleep();
@@ -153,7 +128,7 @@ public class SorterTim extends SorterAbstract {
 	}
 	
 	//Merge during the run making
-	private void mergeStack(Stack<Run> stack)
+	private void mergeStack(Stack<Run> stack) throws InterruptedException
 	{
 		while (stack.size() >= 3)
 		{
@@ -204,7 +179,7 @@ public class SorterTim extends SorterAbstract {
 	}
 	
 	//Merges all remaining runs to end the algorithm
-	private void mergeForce(Stack<Run> stack)
+	private void mergeForce(Stack<Run> stack) throws InterruptedException
 	{
 		while (stack.size() > 1)
 		{
@@ -234,7 +209,7 @@ public class SorterTim extends SorterAbstract {
 		}
 	}
 	
-	private Run merge(Run x, Run y)
+	private Run merge(Run x, Run y) throws InterruptedException
 	{
 		//x should come right before y in the array
 		if (x.size() <= y.size()) return mergeLow(x,y);
@@ -242,7 +217,7 @@ public class SorterTim extends SorterAbstract {
 	}
 	
 	//TODO Galloping
-	private Run mergeLow(Run x, Run y)
+	private Run mergeLow(Run x, Run y) throws InterruptedException
 	{
 		//x is the smaller one
 		a.mark(x.start);
@@ -255,9 +230,6 @@ public class SorterTim extends SorterAbstract {
 		int[] temp = new int[x.size()];
 		for (int i=x.start;i<=x.end;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return null;
-			
 			temp[i-x.start] = a.get(i);
 			sleep();
 		}
@@ -267,9 +239,6 @@ public class SorterTim extends SorterAbstract {
 		int pointerX = 0, pointerY = y.start, store = x.start;
 		while (store <= y.end)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return null;
-			
 			if (pointerX < x.size() && (pointerY > y.end || temp[pointerX] <= a.get(pointerY)))
 			{
 				a.set(store, temp[pointerX]);
@@ -289,7 +258,7 @@ public class SorterTim extends SorterAbstract {
 		return merged;
 	}
 	
-	private Run mergeHigh(Run x, Run y)
+	private Run mergeHigh(Run x, Run y) throws InterruptedException
 	{
 		//y is the smaller one
 		a.mark(x.start);
@@ -302,9 +271,6 @@ public class SorterTim extends SorterAbstract {
 		int[] temp = new int[y.size()];
 		for (int i=y.start;i<=y.end;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return null;
-			
 			temp[i-y.start] = a.get(i);
 			sleep();
 		}
@@ -314,9 +280,6 @@ public class SorterTim extends SorterAbstract {
 		int pointerX = x.end, pointerY = y.size()-1, store = y.end;
 		while (store >= x.start)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return null;
-			
 			if (pointerX >= x.start && (pointerY < 0 || a.get(pointerX) > temp[pointerY]))
 			{
 				a.set(store, a.get(pointerX));

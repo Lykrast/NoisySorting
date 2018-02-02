@@ -12,7 +12,7 @@ public class SorterShell extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		
 		for (int g : GAPS)
@@ -20,22 +20,12 @@ public class SorterShell extends SorterAbstract {
 			for (int i=g;i<size;i++)
 			{
 				for (int j=i;j >= g && a.getSilent(j-g) > a.getSilent(j);j -= g)
-				{
-					//Mid-sort cancel
-					if (isCancelled())
-					{
-						a.sortFinished();
-						return null;
-					}
-					
+				{					
 					a.swap(j, j-g);
 					sleep();
 				}
 			}
 		}
-		
-		a.sortFinished();
-		return null;
 	}
 
 }

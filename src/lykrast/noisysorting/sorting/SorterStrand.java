@@ -9,18 +9,11 @@ public class SorterStrand extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		int pos = 0;
 		for (int i=1;i<size;i++)
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
 			if (a.get(i) >= a.get(pos))
 			{
 				pos++;
@@ -43,13 +36,6 @@ public class SorterStrand extends SorterAbstract {
 			int pos2 = pos+1;
 			for (int i=pos+2;i<size;i++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
 				if (a.get(i) >= a.get(pos2))
 				{
 					pos2++;
@@ -74,12 +60,6 @@ public class SorterStrand extends SorterAbstract {
 			int pointerL = 0, pointerR = pos+1;
 			for (int i=0;i<=pos2;i++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
 				if (pointerL <= pos && (pointerR > pos2 || a.get(pointerL) <= a.get(pointerR)))
 				{
 					temp[i] = a.get(pointerL);
@@ -97,13 +77,6 @@ public class SorterStrand extends SorterAbstract {
 			
 			for (int i=0;i<=pos2;i++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
 				a.set(i, temp[i]);
 				sleep();
 			}
@@ -112,9 +85,6 @@ public class SorterStrand extends SorterAbstract {
 			
 			pos = pos2;
 		}
-		
-		a.sortFinished();
-		return null;
 	}
 
 }

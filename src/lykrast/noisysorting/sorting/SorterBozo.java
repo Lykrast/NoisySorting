@@ -11,23 +11,13 @@ public class SorterBozo extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		Random rand = new Random();
 		while (!isSorted())
 		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
 			a.swap(rand.nextInt(a.getSize()), rand.nextInt(a.getSize()));
 			sleep();
 		}
-		
-		a.sortFinished();
-		return null;
 	}
 	
 	private boolean isSorted()

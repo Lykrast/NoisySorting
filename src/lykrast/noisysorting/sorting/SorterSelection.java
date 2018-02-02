@@ -9,7 +9,7 @@ public class SorterSelection extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		
 		for (int i=0;i<size;i++)
@@ -17,14 +17,7 @@ public class SorterSelection extends SorterAbstract {
 			int minIndex = i;
 			
 			for (int j=i;j<size;j++)
-			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
+			{				
 				if (a.get(j) < a.get(minIndex))
 				{
 					minIndex = j;
@@ -35,9 +28,6 @@ public class SorterSelection extends SorterAbstract {
 			a.swap(i, minIndex);
 			sleep();
 		}
-
-		a.sortFinished();
-		return null;
 	}
 
 }

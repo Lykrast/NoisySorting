@@ -11,19 +11,12 @@ public class SorterBead extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		//Finding the maximum
 		int maxIndex = 0;
 		for (int i=0;i<size;i++)
-		{
-			//Mid-sort cancel
-			if (isCancelled())
-			{
-				a.sortFinished();
-				return null;
-			}
-			
+		{			
 			if (a.get(i) > a.get(maxIndex)) maxIndex = i;
 			sleep();
 		}
@@ -67,9 +60,6 @@ public class SorterBead extends SorterAbstract {
 			sleep();
 			
 		} while (!sorted);
-		
-		a.sortFinished();
-		return null;
 	}
 	
 	private void displayBeads(boolean[][] beads)

@@ -9,16 +9,14 @@ public class SorterSwapInsertionMerge extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		simSort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void simSort(int min, int max)
+	private void simSort(int min, int max) throws InterruptedException
 	{
 		//Mid-sort cancel
-		if (min >= max || isCancelled()) return;
+		if (min >= max) return;
 		if (max - min == 1)
 		{
 			if (a.get(min) > a.get(max)) a.swap(min, max);
@@ -34,9 +32,6 @@ public class SorterSwapInsertionMerge extends SorterAbstract {
 		a.mark(max);
 		for (int i=max;i>middle;i--)
 		{
-			//Mid-sort cancel
-			if (isCancelled()) return;
-			
 			a.mark(i);
 			if (a.get(i) < a.get(middle))
 			{
@@ -45,8 +40,6 @@ public class SorterSwapInsertionMerge extends SorterAbstract {
 				
 				while (j > min && a.get(j-1) > a.get(j))
 				{
-					//Mid-sort cancel
-					if (isCancelled()) return;
 					sleep();
 					a.swap(j, j-1);
 					j--;

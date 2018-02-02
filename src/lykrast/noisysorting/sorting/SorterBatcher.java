@@ -9,16 +9,13 @@ public class SorterBatcher extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		oddEvenSort(0, a.getSize()-1);
-		a.sortFinished();
-		return null;
 	}
 	
-	private void oddEvenSort(int min, int max)
+	private void oddEvenSort(int min, int max) throws InterruptedException
 	{
-		//Mid-sort cancel
-		if (min >= max || isCancelled()) return;
+		if (min >= max) return;
 		
 		//From https://gist.github.com/stbuehler/883635
 		//Makes sure it works on non 2^k sized arrays
@@ -31,11 +28,8 @@ public class SorterBatcher extends SorterAbstract {
 		oddEvenMerge(min, max, 1);
 	}
 	
-	private void oddEvenMerge(int min, int max, int r)
+	private void oddEvenMerge(int min, int max, int r) throws InterruptedException
 	{
-		//Mid-sort cancel
-		if (isCancelled()) return;
-		
 		a.mark(min);
 		a.mark(max);
 		int step = r*2;
@@ -50,7 +44,7 @@ public class SorterBatcher extends SorterAbstract {
 		a.unmark(max);
 	}
 	
-	private void compareSwap(int i, int j)
+	private void compareSwap(int i, int j) throws InterruptedException
 	{
 		//Sort is made to work on 2^k size arrays, so this prevents overflowing
 		if (j >= a.getSize()) return;

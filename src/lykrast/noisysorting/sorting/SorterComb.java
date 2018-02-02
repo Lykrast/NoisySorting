@@ -11,7 +11,7 @@ public class SorterComb extends SorterAbstract {
 	}
 
 	@Override
-	protected Object doInBackground() throws Exception {
+	protected void sort() throws InterruptedException {
 		int size = a.getSize();
 		int gap = size;
 		boolean sorted;
@@ -27,13 +27,6 @@ public class SorterComb extends SorterAbstract {
 			
 			for (int i=0;i<size-gap;i++)
 			{
-				//Mid-sort cancel
-				if (isCancelled())
-				{
-					a.sortFinished();
-					return null;
-				}
-				
 				if (a.get(i) > a.get(i+gap))
 				{
 					sorted = false;
@@ -42,9 +35,6 @@ public class SorterComb extends SorterAbstract {
 				sleep();
 			}
 		}while (!sorted);
-		
-		a.sortFinished();
-		return null;
 	}
 
 }
