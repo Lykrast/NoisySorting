@@ -9,6 +9,7 @@ import lykrast.noisysorting.ui.selector.sorter.SelectorCycle;
 import lykrast.noisysorting.ui.selector.sorter.SelectorHeap;
 import lykrast.noisysorting.ui.selector.sorter.SelectorSelection;
 import lykrast.noisysorting.ui.selector.sorter.SelectorSelectionDouble;
+import lykrast.noisysorting.ui.selector.sorter.SelectorSelectionRecursive;
 
 public class SortListSelection extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -20,6 +21,7 @@ public class SortListSelection extends SortList {
 		list.add(new SelectorSelection());
 		list.add(new SelectorSelectionDouble());
 		list.add(new SelectorBingo());
+		list.add(new SelectorSelectionRecursive());
 		list.add(new SelectorHeap());
 		list.add(new SelectorCycle());
 		

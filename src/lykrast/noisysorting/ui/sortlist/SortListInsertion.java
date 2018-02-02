@@ -5,6 +5,7 @@ import java.util.List;
 
 import lykrast.noisysorting.ui.selector.sorter.SelectorAbstract;
 import lykrast.noisysorting.ui.selector.sorter.SelectorInsertion;
+import lykrast.noisysorting.ui.selector.sorter.SelectorInsertionRecursive;
 import lykrast.noisysorting.ui.selector.sorter.SelectorShell;
 
 public class SortListInsertion extends SortList {
@@ -15,6 +16,7 @@ public class SortListInsertion extends SortList {
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
 		list.add(new SelectorInsertion());
+		list.add(new SelectorInsertionRecursive());
 		list.add(new SelectorShell());
 		
 		//Collections.sort(list);
