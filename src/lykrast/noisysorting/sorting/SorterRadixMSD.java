@@ -5,11 +5,12 @@ import java.util.Arrays;
 import lykrast.noisysorting.array.VisualArray;
 
 public class SorterRadixMSD extends SorterAbstract {
-	private static final int RADIX = 4;
+	private int radix = 4;
 	
-	public SorterRadixMSD(VisualArray array)
+	public SorterRadixMSD(VisualArray array, int radix)
 	{
 		super(array);
+		this.radix = radix;
 	}
 
 	@Override
@@ -25,8 +26,8 @@ public class SorterRadixMSD extends SorterAbstract {
 		int max = a.getSilent(maxIndex);
 		//Compute the starting division
 		int exp;
-		for (exp=1;max/exp>0;exp*=RADIX);
-		exp /= RADIX;
+		for (exp=1;max/exp>0;exp*=radix);
+		exp /= radix;
 		
 		msdSort(0, a.getSize()-1, exp);
 	}
@@ -35,7 +36,7 @@ public class SorterRadixMSD extends SorterAbstract {
 	{
 		if (exp <= 0 || min >= max) return;
 		int size = max - min + 1;
-		int[] counts = new int[RADIX];
+		int[] counts = new int[radix];
 		Arrays.fill(counts, 0);
 		
 		a.mark(min);
@@ -43,14 +44,14 @@ public class SorterRadixMSD extends SorterAbstract {
 		
 		for (int i=min;i<=max;i++)
 		{
-			counts[(a.get(i)/exp) % RADIX]++;
+			counts[(a.get(i)/exp) % radix]++;
 			sleep();
 		}
 		
 		//Computing the positions
-		int[] starting = new int[RADIX];
-		for (int i=1;i<RADIX;i++) counts[i] += counts[i-1];
-		for (int i=0;i<RADIX;i++)
+		int[] starting = new int[radix];
+		for (int i=1;i<radix;i++) counts[i] += counts[i-1];
+		for (int i=0;i<radix;i++)
 		{
 			starting[i] = counts[i]-1+min;
 		}
@@ -59,8 +60,8 @@ public class SorterRadixMSD extends SorterAbstract {
 		int[] tmp = new int[size];
 		for (int i=max;i>=min;i--)
 		{
-			tmp[counts[(a.getSilent(i)/exp) % RADIX]-1] = a.getSilent(i);
-			counts[(a.getSilent(i)/exp) % RADIX]--;
+			tmp[counts[(a.getSilent(i)/exp) % radix]-1] = a.getSilent(i);
+			counts[(a.getSilent(i)/exp) % radix]--;
 		}
 		
 		//Copying to visible array
@@ -76,10 +77,10 @@ public class SorterRadixMSD extends SorterAbstract {
 		//Recursive sorting
 		if (exp > 1)
 		{			
-			msdSort(min, starting[0], exp/RADIX);
-			for (int i=1;i<RADIX;i++)
+			msdSort(min, starting[0], exp/radix);
+			for (int i=1;i<radix;i++)
 			{
-				msdSort(starting[i-1]+1, starting[i], exp/RADIX);
+				msdSort(starting[i-1]+1, starting[i], exp/radix);
 			}
 		}
 	}
