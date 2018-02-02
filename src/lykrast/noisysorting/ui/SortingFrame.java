@@ -5,7 +5,9 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import lykrast.noisysorting.array.VisualArray;
-import lykrast.noisysorting.ui.selector.LabelSelectorAbstract;
+import lykrast.noisysorting.ui.arraylabel.ArrayLabel;
+import lykrast.noisysorting.ui.arraylabel.ArrayLabelBarsVertical;
+import lykrast.noisysorting.ui.selector.label.LabelSelectorAbstract;
 
 public class SortingFrame extends JFrame {
 	private static final long serialVersionUID = 1L;

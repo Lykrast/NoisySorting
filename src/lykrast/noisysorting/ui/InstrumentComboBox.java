@@ -7,6 +7,8 @@ import javax.sound.midi.Instrument;
 import javax.sound.midi.Synthesizer;
 import javax.swing.JComboBox;
 
+import lykrast.noisysorting.ui.arraylabel.ArraySoundMaker;
+
 public class InstrumentComboBox extends JComboBox<Instrument> {
 	private static final long serialVersionUID = 1L;
 	

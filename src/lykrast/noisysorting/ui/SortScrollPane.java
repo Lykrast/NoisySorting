@@ -2,6 +2,8 @@ package lykrast.noisysorting.ui;
 
 import javax.swing.JScrollPane;
 
+import lykrast.noisysorting.ui.sortlist.SortList;
+
 public class SortScrollPane extends JScrollPane {
 	private static final long serialVersionUID = 1L;
 	private SortList list;

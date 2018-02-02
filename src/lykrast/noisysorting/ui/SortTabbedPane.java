@@ -7,6 +7,13 @@ import javax.swing.JTabbedPane;
 
 import lykrast.noisysorting.array.VisualArray;
 import lykrast.noisysorting.sorting.SorterAbstract;
+import lykrast.noisysorting.ui.sortlist.SortListDistribution;
+import lykrast.noisysorting.ui.sortlist.SortListExchange;
+import lykrast.noisysorting.ui.sortlist.SortListHybrid;
+import lykrast.noisysorting.ui.sortlist.SortListInsertion;
+import lykrast.noisysorting.ui.sortlist.SortListMerge;
+import lykrast.noisysorting.ui.sortlist.SortListMisc;
+import lykrast.noisysorting.ui.sortlist.SortListSelection;
 
 public class SortTabbedPane extends JTabbedPane {
 	private static final long serialVersionUID = 1L;
