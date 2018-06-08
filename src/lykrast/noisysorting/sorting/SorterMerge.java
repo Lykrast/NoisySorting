@@ -15,6 +15,7 @@ public class SorterMerge extends SorterAbstract {
 	
 	private void mergeSort(int min, int max) throws InterruptedException
 	{
+		if (min >= max) return;
 		int middle = (min+max)/2;
 		mergeSort(min,middle);
 		mergeSort(middle+1,max);

@@ -26,6 +26,7 @@ public class SorterMergeBottomUp extends SorterAbstract {
 	//Merge [min,mid] with [mid+1,max]
 	private void merge(int min, int mid, int max) throws InterruptedException
 	{
+		if (min >= max) return;
 		a.mark(min);
 		a.mark(max);
 		a.mark(mid);

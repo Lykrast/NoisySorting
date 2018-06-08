@@ -16,6 +16,7 @@ public class SorterMerge3Way extends SorterAbstract {
 	
 	private void mergeSort3(int min, int max) throws InterruptedException
 	{
+		if (min >= max) return;
 		int size = max - min + 1;
 		int mid1 = min + (size/3);
 		int mid2 = min + 2 * (size/3) + 1;
