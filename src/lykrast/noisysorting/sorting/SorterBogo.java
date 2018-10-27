@@ -13,7 +13,7 @@ public class SorterBogo extends SorterAbstract {
 	@Override
 	protected void sort() throws InterruptedException {
 		Random rand = new Random();
-		while (!isSorted())
+		while (!a.isSorted())
 		{
 			for (int i=a.getSize()-1;i>0;i--)
 			{
@@ -21,15 +21,6 @@ public class SorterBogo extends SorterAbstract {
 			}
 			sleep();
 		}
-	}
-	
-	private boolean isSorted()
-	{
-		for (int i=0;i<a.getSize()-1;i++)
-		{
-			if (a.getSilent(i)>a.getSilent(i+1)) return false;
-		}
-		return true;
 	}
 
 }

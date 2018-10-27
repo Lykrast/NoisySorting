@@ -15,6 +15,7 @@ import lykrast.noisysorting.ui.selector.sorter.SelectorGnome;
 import lykrast.noisysorting.ui.selector.sorter.SelectorJumpDown;
 import lykrast.noisysorting.ui.selector.sorter.SelectorMergeExchange;
 import lykrast.noisysorting.ui.selector.sorter.SelectorOddEven;
+import lykrast.noisysorting.ui.selector.sorter.SelectorPermutation;
 import lykrast.noisysorting.ui.selector.sorter.SelectorQuickHoare;
 import lykrast.noisysorting.ui.selector.sorter.SelectorQuickLomuto;
 import lykrast.noisysorting.ui.selector.sorter.SelectorSlow;
@@ -42,6 +43,7 @@ public class SortListExchange extends SortList {
 		list.add(new SelectorBogo());
 		list.add(new SelectorBozo());
 		list.add(new SelectorDoubleSlowInsertion());
+		list.add(new SelectorPermutation());
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);

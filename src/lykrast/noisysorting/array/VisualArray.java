@@ -134,6 +134,15 @@ public class VisualArray extends Observable {
 		setUpdated();
 	}
 	
+	public boolean isSorted()
+	{
+		for (int i=1;i<size;i++)
+		{
+			if (array[i-1]>array[i]) return false;
+		}
+		return true;
+	}
+	
 	public void sortFinished()
 	{
 		clearMark();
