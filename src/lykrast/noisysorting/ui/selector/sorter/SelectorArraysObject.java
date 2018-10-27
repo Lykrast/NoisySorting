@@ -14,7 +14,7 @@ public class SelectorArraysObject extends SelectorAbstract {
 	@Override
 	public String toString()
 	{
-		return "Arrays.sort() (Object)";
+		return "Arrays.sort() (Object, legacy)";
 	}
 
 }

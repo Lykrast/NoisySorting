@@ -21,7 +21,7 @@ public class SortListHybrid extends SortList {
 		list.add(new SelectorTim());
 		list.add(new SelectorJ());
 		list.add(new SelectorArraysPrimitive());
-		//list.add(new SelectorArraysObject());
+		list.add(new SelectorArraysObject());
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
