@@ -18,6 +18,7 @@ public class LabelComboBox extends JComboBox<LabelSelectorAbstract> {
 		addItem(new LabelSelectorHoopsGrey());
 		addItem(new LabelSelectorHoopsColor());
 		addItem(new LabelSelectorConch());
+		addItem(new LabelSelectorDisparityLoop());
 		addItem(new LabelSelectorMosaic());
 		addItem(new LabelSelectorMosaicValue());
 		setSelectedIndex(0);
