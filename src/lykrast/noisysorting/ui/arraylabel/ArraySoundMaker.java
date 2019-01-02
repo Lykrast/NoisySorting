@@ -29,6 +29,8 @@ public class ArraySoundMaker implements Observer, ItemListener {
 	private boolean[] releaseNext;
 	private Instrument current;
 	
+	private static final int PITCH_MARGIN = 30;
+	
 	public ArraySoundMaker(VisualArray array, int vol)
 	{
 		this.array = array;
@@ -42,7 +44,7 @@ public class ArraySoundMaker implements Observer, ItemListener {
 		} catch (MidiUnavailableException e) {
 			e.printStackTrace();
 		}
-		scale = 127.0/array.getSize();
+		scale = (127.0 - PITCH_MARGIN*2)/array.getSize();
 		releaseNext = new boolean[128];
 		Arrays.fill(releaseNext, false);
 		volume = vol;
@@ -81,7 +83,7 @@ public class ArraySoundMaker implements Observer, ItemListener {
 		if (ev instanceof VAEventSingle)
 		{
 			VAEventSingle event = (VAEventSingle)ev;
-			int note = (int) Math.round(array.getSilent(event.getIndex()) * scale);
+			int note = (int) Math.round(array.getSilent(event.getIndex()) * scale) + PITCH_MARGIN;
 			note = 127 - note;
 			mc[0].noteOn(note, volume);
 			releaseNext[note] = true;
