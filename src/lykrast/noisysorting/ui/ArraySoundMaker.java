@@ -1,4 +1,4 @@
-package lykrast.noisysorting.ui.arraylabel;
+package lykrast.noisysorting.ui;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -18,7 +18,6 @@ import lykrast.noisysorting.array.VAEventMultiple;
 import lykrast.noisysorting.array.VAEventRefresh;
 import lykrast.noisysorting.array.VAEventSingle;
 import lykrast.noisysorting.array.VisualArray;
-import lykrast.noisysorting.ui.InstrumentComboBox;
 
 public class ArraySoundMaker implements Observer, ItemListener {
 	private Synthesizer synth;
@@ -38,8 +37,7 @@ public class ArraySoundMaker implements Observer, ItemListener {
 			synth = MidiSystem.getSynthesizer();
 			synth.open();
 			mc = synth.getChannels();
-			Instrument[] instr = synth.getAvailableInstruments();
-			loadInstrument(instr[0]);
+			//First instrument is force loaded once the combo box is created
 			this.array.addObserver(this);
 		} catch (MidiUnavailableException e) {
 			e.printStackTrace();
@@ -62,6 +60,7 @@ public class ArraySoundMaker implements Observer, ItemListener {
 	{
 		InstrumentComboBox box = new InstrumentComboBox(synth);
 		box.addItemListener(this);
+		box.forceChangeEvent();
 		return box;
 	}
 
@@ -69,6 +68,7 @@ public class ArraySoundMaker implements Observer, ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED)
 		{
+			System.out.println(e.getItem());
 			loadInstrument((Instrument)e.getItem());
 		}
 	}

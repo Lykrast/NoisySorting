@@ -16,7 +16,6 @@ import javax.swing.event.ChangeListener;
 import lykrast.noisysorting.array.FillerAbstract;
 import lykrast.noisysorting.array.VisualArray;
 import lykrast.noisysorting.sorting.SorterAbstract;
-import lykrast.noisysorting.ui.arraylabel.ArraySoundMaker;
 
 public class OptionPanel extends JPanel implements ActionListener, ChangeListener {
 	private static final long serialVersionUID = 1L;
