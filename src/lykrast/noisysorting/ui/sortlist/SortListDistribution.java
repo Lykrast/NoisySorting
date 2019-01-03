@@ -10,17 +10,16 @@ public class SortListDistribution extends SortList {
 	private static final long serialVersionUID = 1L;
 	private static SelectorAbstract[] sorts = new SelectorAbstract[0];
 	
-	private static final int RADIX = 4;
-	
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
+		int[] radixes = {2, 4, 8, 10};
 		list.add(new Selector("Counting Sort", SorterCounting::new));
-		list.add(new Selector("Radix Sort (LSD)", a -> new SorterRadixLSD(a, RADIX)));
-		list.add(new Selector("Radix Sort (MSD)", a -> new SorterRadixMSD(a, RADIX)));
-		list.add(new Selector("In-place Radix Sort (LSD)", a -> new SorterRadixLSDInPlace(a, RADIX)));
+		for (int r : radixes)	list.add(new Selector("Radix Sort (LSD) - Radix " + r, a -> new SorterRadixLSD(a, r)));
+		for (int r : radixes)	list.add(new Selector("Radix Sort (MSD) - Radix " + r, a -> new SorterRadixMSD(a, r)));
+		for (int r : radixes)	list.add(new Selector("In-place Radix Sort (LSD) - Radix " + r, a -> new SorterRadixLSDInPlace(a, r)));
 		list.add(new Selector("In-place Radix Sort (MSD)", SorterRadixMSDInPlace::new));
-		list.add(new Selector("American Flag Sort", a -> new SorterAmericanFlag(a, RADIX)));
+		for (int r : radixes) list.add(new Selector("American Flag Sort - Radix " + r, a -> new SorterAmericanFlag(a, r)));
 		list.add(new Selector("Shuffle Sort", SorterShuffle::new));
 		list.add(new Selector("Bead Sort", SorterBead::new));
 		
