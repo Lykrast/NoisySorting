@@ -66,11 +66,7 @@ public class ArraySoundMaker implements Observer, ItemListener {
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		if (e.getStateChange() == ItemEvent.SELECTED)
-		{
-			System.out.println(e.getItem());
-			loadInstrument((Instrument)e.getItem());
-		}
+		if (e.getStateChange() == ItemEvent.SELECTED) loadInstrument((Instrument)e.getItem());
 	}
 
 	@Override
