@@ -3,14 +3,9 @@ package lykrast.noisysorting.ui.sortlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import lykrast.noisysorting.sorting.*;
+import lykrast.noisysorting.ui.selector.sorter.Selector;
 import lykrast.noisysorting.ui.selector.sorter.SelectorAbstract;
-import lykrast.noisysorting.ui.selector.sorter.SelectorBalanced;
-import lykrast.noisysorting.ui.selector.sorter.SelectorBatcher;
-import lykrast.noisysorting.ui.selector.sorter.SelectorBitonic;
-import lykrast.noisysorting.ui.selector.sorter.SelectorBoseNelson;
-import lykrast.noisysorting.ui.selector.sorter.SelectorHibbard;
-import lykrast.noisysorting.ui.selector.sorter.SelectorPancake;
-import lykrast.noisysorting.ui.selector.sorter.SelectorSleep;
 
 public class SortListMisc extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -19,13 +14,13 @@ public class SortListMisc extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
-		list.add(new SelectorBoseNelson());
-		list.add(new SelectorHibbard());
-		list.add(new SelectorBitonic());
-		list.add(new SelectorBatcher());
-		list.add(new SelectorBalanced());
-		list.add(new SelectorSleep());
-		list.add(new SelectorPancake());
+		list.add(new Selector("Bolse-Nelson Sort", SorterBoseNelson::new));
+		list.add(new Selector("Hibbard Sort", SorterHibbard::new));
+		list.add(new Selector("Bitonic Sort", SorterBitonic::new));
+		list.add(new Selector("Batcher Odd-Even Mergesort", SorterBatcher::new));
+		list.add(new Selector("Balanced Sort", SorterBalanced::new));
+		list.add(new Selector("Sleep Sort", SorterSleep::new));
+		list.add(new Selector("Pancake Sort", SorterPancake::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);

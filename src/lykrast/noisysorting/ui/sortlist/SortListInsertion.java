@@ -3,10 +3,9 @@ package lykrast.noisysorting.ui.sortlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import lykrast.noisysorting.sorting.*;
+import lykrast.noisysorting.ui.selector.sorter.Selector;
 import lykrast.noisysorting.ui.selector.sorter.SelectorAbstract;
-import lykrast.noisysorting.ui.selector.sorter.SelectorInsertion;
-import lykrast.noisysorting.ui.selector.sorter.SelectorInsertionRecursive;
-import lykrast.noisysorting.ui.selector.sorter.SelectorShell;
 
 public class SortListInsertion extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -15,9 +14,9 @@ public class SortListInsertion extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
-		list.add(new SelectorInsertion());
-		list.add(new SelectorInsertionRecursive());
-		list.add(new SelectorShell());
+		list.add(new Selector("Insertion Sort", SorterInsertion::new));
+		list.add(new Selector("Recursive Insertion Sort", SorterInsertionRecursive::new));
+		list.add(new Selector("Shellsort", SorterShell::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);

@@ -3,14 +3,9 @@ package lykrast.noisysorting.ui.sortlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import lykrast.noisysorting.sorting.*;
+import lykrast.noisysorting.ui.selector.sorter.Selector;
 import lykrast.noisysorting.ui.selector.sorter.SelectorAbstract;
-import lykrast.noisysorting.ui.selector.sorter.SelectorMerge;
-import lykrast.noisysorting.ui.selector.sorter.SelectorMerge3Way;
-import lykrast.noisysorting.ui.selector.sorter.SelectorMergeBottomUp;
-import lykrast.noisysorting.ui.selector.sorter.SelectorMergeInPlace;
-import lykrast.noisysorting.ui.selector.sorter.SelectorMergeInPlaceNaive;
-import lykrast.noisysorting.ui.selector.sorter.SelectorStrand;
-import lykrast.noisysorting.ui.selector.sorter.SelectorSwapInsertionMerge;
 
 public class SortListMerge extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -19,13 +14,13 @@ public class SortListMerge extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
-		list.add(new SelectorMerge());
-		list.add(new SelectorMergeBottomUp());
-		list.add(new SelectorMerge3Way());
-		list.add(new SelectorMergeInPlaceNaive());
-		list.add(new SelectorMergeInPlace());
-		list.add(new SelectorStrand());
-		list.add(new SelectorSwapInsertionMerge());
+		list.add(new Selector("Merge Sort", SorterMerge::new));
+		list.add(new Selector("Bottom-Up Merge Sort", SorterMergeBottomUp::new));
+		list.add(new Selector("3-Way Merge Sort", SorterMerge3Way::new));
+		list.add(new Selector("Naive In-Place Merge Sort", SorterMergeInPlaceNaive::new));
+		list.add(new Selector("In-Place Merge Sort", SorterMergeInPlace::new));
+		list.add(new Selector("Strand Sort", SorterStrand::new));
+		list.add(new Selector("Swap Insertion Merge Sort", SorterSwapInsertionMerge::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);

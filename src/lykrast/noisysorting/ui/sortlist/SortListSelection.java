@@ -3,13 +3,9 @@ package lykrast.noisysorting.ui.sortlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import lykrast.noisysorting.sorting.*;
+import lykrast.noisysorting.ui.selector.sorter.Selector;
 import lykrast.noisysorting.ui.selector.sorter.SelectorAbstract;
-import lykrast.noisysorting.ui.selector.sorter.SelectorBingo;
-import lykrast.noisysorting.ui.selector.sorter.SelectorCycle;
-import lykrast.noisysorting.ui.selector.sorter.SelectorHeap;
-import lykrast.noisysorting.ui.selector.sorter.SelectorSelection;
-import lykrast.noisysorting.ui.selector.sorter.SelectorSelectionDouble;
-import lykrast.noisysorting.ui.selector.sorter.SelectorSelectionRecursive;
 
 public class SortListSelection extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -18,12 +14,12 @@ public class SortListSelection extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
-		list.add(new SelectorSelection());
-		list.add(new SelectorSelectionDouble());
-		list.add(new SelectorBingo());
-		list.add(new SelectorSelectionRecursive());
-		list.add(new SelectorHeap());
-		list.add(new SelectorCycle());
+		list.add(new Selector("Selection Sort", SorterSelection::new));
+		list.add(new Selector("Double Selection Sort", SorterSelectionDouble::new));
+		list.add(new Selector("Bingo Sort", SorterBingo::new));
+		list.add(new Selector("Recursive Selection Sort", SorterSelectionRecursive::new));
+		list.add(new Selector("Heap Sort", SorterHeap::new));
+		list.add(new Selector("Cycle Sort", SorterCycle::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);

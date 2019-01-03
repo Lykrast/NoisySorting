@@ -3,12 +3,9 @@ package lykrast.noisysorting.ui.sortlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import lykrast.noisysorting.sorting.*;
+import lykrast.noisysorting.ui.selector.sorter.Selector;
 import lykrast.noisysorting.ui.selector.sorter.SelectorAbstract;
-import lykrast.noisysorting.ui.selector.sorter.SelectorArraysObject;
-import lykrast.noisysorting.ui.selector.sorter.SelectorArraysPrimitive;
-import lykrast.noisysorting.ui.selector.sorter.SelectorCombInsertion;
-import lykrast.noisysorting.ui.selector.sorter.SelectorJ;
-import lykrast.noisysorting.ui.selector.sorter.SelectorTim;
 
 public class SortListHybrid extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -17,11 +14,11 @@ public class SortListHybrid extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
-		list.add(new SelectorCombInsertion());
-		list.add(new SelectorTim());
-		list.add(new SelectorJ());
-		list.add(new SelectorArraysPrimitive());
-		list.add(new SelectorArraysObject());
+		list.add(new Selector("Comb-Insertion Sort", SorterCombInsertion::new));
+		list.add(new Selector("Timsort", SorterTim::new));
+		list.add(new Selector("J Sort", SorterJ::new));
+		list.add(new Selector("Arrays.sort() (Primitive)", SorterArraysPrimitive::new));
+		//list.add(new Selector("Arrays.sort() (Object, legacy)", SorterArraysObject::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);

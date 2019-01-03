@@ -3,23 +3,9 @@ package lykrast.noisysorting.ui.sortlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import lykrast.noisysorting.sorting.*;
+import lykrast.noisysorting.ui.selector.sorter.Selector;
 import lykrast.noisysorting.ui.selector.sorter.SelectorAbstract;
-import lykrast.noisysorting.ui.selector.sorter.SelectorBogo;
-import lykrast.noisysorting.ui.selector.sorter.SelectorBozo;
-import lykrast.noisysorting.ui.selector.sorter.SelectorBubble;
-import lykrast.noisysorting.ui.selector.sorter.SelectorBubbleRecursive;
-import lykrast.noisysorting.ui.selector.sorter.SelectorCocktail;
-import lykrast.noisysorting.ui.selector.sorter.SelectorComb;
-import lykrast.noisysorting.ui.selector.sorter.SelectorDoubleSlowInsertion;
-import lykrast.noisysorting.ui.selector.sorter.SelectorGnome;
-import lykrast.noisysorting.ui.selector.sorter.SelectorJumpDown;
-import lykrast.noisysorting.ui.selector.sorter.SelectorMergeExchange;
-import lykrast.noisysorting.ui.selector.sorter.SelectorOddEven;
-import lykrast.noisysorting.ui.selector.sorter.SelectorPermutation;
-import lykrast.noisysorting.ui.selector.sorter.SelectorQuickHoare;
-import lykrast.noisysorting.ui.selector.sorter.SelectorQuickLomuto;
-import lykrast.noisysorting.ui.selector.sorter.SelectorSlow;
-import lykrast.noisysorting.ui.selector.sorter.SelectorStooge;
 
 public class SortListExchange extends SortList {
 	private static final long serialVersionUID = 1L;
@@ -28,22 +14,22 @@ public class SortListExchange extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
-		list.add(new SelectorBubble());
-		list.add(new SelectorCocktail());
-		list.add(new SelectorJumpDown());
-		list.add(new SelectorOddEven());
-		list.add(new SelectorComb());
-		list.add(new SelectorBubbleRecursive());
-		list.add(new SelectorMergeExchange());
-		list.add(new SelectorGnome());
-		list.add(new SelectorQuickLomuto());
-		list.add(new SelectorQuickHoare());
-		list.add(new SelectorSlow());
-		list.add(new SelectorStooge());
-		list.add(new SelectorBogo());
-		list.add(new SelectorBozo());
-		list.add(new SelectorDoubleSlowInsertion());
-		list.add(new SelectorPermutation());
+		list.add(new Selector("Bubble Sort", SorterBubble::new));
+		list.add(new Selector("Cocktail Shaker Sort", SorterCocktail::new));
+		list.add(new Selector("Jump-Down Sort", SorterJumpDown::new));
+		list.add(new Selector("Odd-Even Sort", SorterOddEven::new));
+		list.add(new Selector("Comb Sort", SorterComb::new));
+		list.add(new Selector("Recursive Bubble Sort", SorterBubbleRecursive::new));
+		list.add(new Selector("Merge Exchange Sort", SorterMergeExchange::new));
+		list.add(new Selector("Gnome Sort", SorterGnome::new));
+		list.add(new Selector("Quicksort (Lomuto partition scheme)", SorterQuickLomuto::new));
+		list.add(new Selector("Quicksort (Hoare partition scheme)", SorterQuickHoare::new));
+		list.add(new Selector("Slow Sort", SorterSlow::new));
+		list.add(new Selector("Stooge Sort", SorterStooge::new));
+		list.add(new Selector("Bogo Sort", SorterBogo::new));
+		list.add(new Selector("Bozo Sort", SorterBozo::new));
+		list.add(new Selector("Double Slow Insertion Sort", SorterDoubleSlowInsertion::new));
+		list.add(new Selector("Permutation Sort", SorterPermutation::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
