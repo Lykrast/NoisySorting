@@ -19,6 +19,7 @@ public class SortScrollPane extends JScrollPane {
 		return list;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return list.toString();

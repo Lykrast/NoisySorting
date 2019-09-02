@@ -30,6 +30,7 @@ public class SortListExchange extends SortList {
 		list.add(new Selector("Bozo Sort", SorterBozo::new));
 		list.add(new Selector("Double Slow Insertion Sort", SorterDoubleSlowInsertion::new));
 		list.add(new Selector("Permutation Sort", SorterPermutation::new));
+		list.add(new Selector("Circle Sort", SorterCircle::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
