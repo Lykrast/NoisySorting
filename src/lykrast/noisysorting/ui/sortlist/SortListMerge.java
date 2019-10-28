@@ -21,6 +21,7 @@ public class SortListMerge extends SortList {
 		list.add(new Selector("In-Place Merge Sort", SorterMergeInPlace::new));
 		list.add(new Selector("Strand Sort", SorterStrand::new));
 		list.add(new Selector("Swap Insertion Merge Sort", SorterSwapInsertionMerge::new));
+		list.add(new Selector("Weaved Merge Sort", SorterMergeWeaved::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
