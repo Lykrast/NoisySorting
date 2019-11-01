@@ -28,9 +28,9 @@ public class SortListExchange extends SortList {
 		list.add(new Selector("Stooge Sort", SorterStooge::new));
 		list.add(new Selector("Bogo Sort", SorterBogo::new));
 		list.add(new Selector("Bozo Sort", SorterBozo::new));
-		list.add(new Selector("Double Slow Insertion Sort", SorterDoubleSlowInsertion::new));
 		list.add(new Selector("Permutation Sort", SorterPermutation::new));
 		list.add(new Selector("Circle Sort", SorterCircle::new));
+		list.add(new Selector("Double Slow Insertion Sort (*)", SorterDoubleSlowInsertion::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
