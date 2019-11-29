@@ -1,8 +1,11 @@
 package lykrast.noisysorting.ui.arraylabel;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 
 import lykrast.noisysorting.array.VisualArray;
 
@@ -15,6 +18,8 @@ public abstract class ArrayLabelHoops extends ArrayLabel {
 	}
 
 	protected abstract Color getColor(int i);
+	
+	private static Stroke stroke = new BasicStroke(1.0f);
 
 	@Override
 	protected void paintArray(Graphics g) {
@@ -22,6 +27,7 @@ public abstract class ArrayLabelHoops extends ArrayLabel {
 		g.setColor(Color.BLACK);
 		g.fillRect(bb.x, bb.y, bb.width, bb.height);
 		
+		((Graphics2D) g).setStroke(stroke);
 		int size = array.getSize();
 		int startX = bb.x + 10;
 		int width = bb.width - 20;
