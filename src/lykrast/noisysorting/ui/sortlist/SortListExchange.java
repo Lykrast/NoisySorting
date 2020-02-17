@@ -24,6 +24,7 @@ public class SortListExchange extends SortList {
 		list.add(new Selector("Gnome Sort", SorterGnome::new));
 		list.add(new Selector("Quicksort (Lomuto partition scheme)", SorterQuickLomuto::new));
 		list.add(new Selector("Quicksort (Hoare partition scheme)", SorterQuickHoare::new));
+		list.add(new Selector("Quicksort 3 Way", SorterQuick3::new));
 		list.add(new Selector("Slow Sort", SorterSlow::new));
 		list.add(new Selector("Stooge Sort", SorterStooge::new));
 		list.add(new Selector("Bogo Sort", SorterBogo::new));
