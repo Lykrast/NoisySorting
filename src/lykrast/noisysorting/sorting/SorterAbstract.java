@@ -22,6 +22,9 @@ public abstract class SorterAbstract extends SwingWorker<Object, Object> {
 		catch (InterruptedException e) {
 			cleanup();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		a.sortFinished();
 		return null;

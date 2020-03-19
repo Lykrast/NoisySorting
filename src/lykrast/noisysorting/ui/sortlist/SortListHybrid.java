@@ -17,6 +17,7 @@ public class SortListHybrid extends SortList {
 		list.add(new Selector("Comb-Insertion Sort", SorterCombInsertion::new));
 		list.add(new Selector("Timsort", SorterTim::new));
 		list.add(new Selector("J Sort", SorterJ::new));
+		list.add(new Selector("WikiSort - No cache", SorterWiki::new));
 		list.add(new Selector("Arrays.sort() (Primitive)", SorterArraysPrimitive::new));
 		//list.add(new Selector("Arrays.sort() (Object, legacy)", SorterArraysObject::new));
 		
