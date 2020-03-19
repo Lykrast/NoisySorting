@@ -22,6 +22,7 @@ public class SortListDistribution extends SortList {
 		for (int r : radixes) list.add(new Selector("American Flag Sort - Radix " + r, a -> new SorterAmericanFlag(a, r)));
 		list.add(new Selector("Shuffle Sort", SorterShuffle::new));
 		list.add(new Selector("Bead Sort", SorterBead::new));
+		list.add(new Selector("Flash Sort", SorterFlash::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);

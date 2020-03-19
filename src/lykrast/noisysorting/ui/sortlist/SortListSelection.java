@@ -18,7 +18,10 @@ public class SortListSelection extends SortList {
 		list.add(new Selector("Double Selection Sort", SorterSelectionDouble::new));
 		list.add(new Selector("Bingo Sort", SorterBingo::new));
 		list.add(new Selector("Recursive Selection Sort", SorterSelectionRecursive::new));
-		list.add(new Selector("Heap Sort", SorterHeap::new));
+		list.add(new Selector("Max Heap Sort", SorterHeapMax::new));
+		list.add(new Selector("Min Heap Sort", SorterHeapMin::new));
+		list.add(new Selector("Ternary Heap Sort", SorterHeapTernary::new));
+		//TODO find weak heap sort
 		list.add(new Selector("Smoothsort", SorterSmooth::new));
 		list.add(new Selector("Cycle Sort", SorterCycle::new));
 		
