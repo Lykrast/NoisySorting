@@ -22,7 +22,7 @@ public class SorterFlash extends SorterAbstract {
 		}
 		
 		//Black magic
-		int m = (size * 45) / 100;
+		int m = (size * 42) / 100;
 		int[] l = new int[m];
 		double c1 = (m - 1.0) / (a.getSilent(imax) - vmin);
 		
