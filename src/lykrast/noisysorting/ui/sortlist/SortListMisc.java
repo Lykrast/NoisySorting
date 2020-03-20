@@ -21,6 +21,7 @@ public class SortListMisc extends SortList {
 		list.add(new Selector("Balanced Sort", SorterBalanced::new));
 		list.add(new Selector("Sleep Sort", SorterSleep::new));
 		list.add(new Selector("Pancake Sort", SorterPancake::new));
+		list.add(new Selector("Fisher–Yates shuffle", SorterFisherYatesShuffle::new));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);
