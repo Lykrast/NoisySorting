@@ -19,6 +19,7 @@ public class SortListMisc extends SortList {
 		list.add(new Selector("Bitonic Sort", SorterBitonic::new));
 		list.add(new Selector("Batcher Odd-Even Mergesort", SorterBatcher::new));
 		list.add(new Selector("Balanced Sort", SorterBalanced::new));
+		//TODO find something for the pairwise sorting network https://pdfs.semanticscholar.org/d663/dbbdb0e35258fbdbc0da91de97f06813e9a6.pdf
 		list.add(new Selector("Sleep Sort", SorterSleep::new));
 		list.add(new Selector("Pancake Sort", SorterPancake::new));
 		list.add(new Selector("Fisher–Yates shuffle", SorterFisherYatesShuffle::new));
