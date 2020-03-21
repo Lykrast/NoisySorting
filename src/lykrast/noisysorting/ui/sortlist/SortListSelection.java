@@ -21,7 +21,7 @@ public class SortListSelection extends SortList {
 		list.add(new Selector("Max Heap Sort", SorterHeapMax::new));
 		list.add(new Selector("Min Heap Sort", SorterHeapMin::new));
 		list.add(new Selector("Ternary Heap Sort", SorterHeapTernary::new));
-		//TODO find weak heap sort
+		list.add(new Selector("Weak Heap Sort", SorterHeapWeak::new));
 		list.add(new Selector("Smoothsort", SorterSmooth::new));
 		list.add(new Selector("Cycle Sort", SorterCycle::new));
 		
