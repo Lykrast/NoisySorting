@@ -10,6 +10,7 @@ public class SorterWiki extends SorterAbstract {
 	//TODO do the cached version
 	private int cacheSize = 0;
 
+	//TODO some more cleanup
 	public SorterWiki(VisualArray array) {
 		super(array);
 	}
