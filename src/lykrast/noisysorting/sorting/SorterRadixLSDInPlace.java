@@ -12,7 +12,7 @@ public class SorterRadixLSDInPlace extends SorterAbstract {
 		this.radix = radix;
 	}
 
-	//From https://github.com/w0rthy/ArrayVisualizer/blob/master/src/RadixLSDInPlace.java
+	//From https://github.com/w0rthy/ArrayVisualizer/blob/master/src/array/visualizer/sort/RadixLSDInPlace.java
 	@Override
 	protected void sort() throws InterruptedException {
 		//Finding the maximum

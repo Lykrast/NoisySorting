@@ -14,12 +14,12 @@ public class SortListHybrid extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
-		list.add(new Selector("Comb-Insertion Sort", SorterCombInsertion::new));
-		list.add(new Selector("Timsort", SorterTim::new));
-		list.add(new Selector("J Sort", SorterJ::new));
-		list.add(new Selector("WikiSort - No cache", SorterWiki::new));
-		list.add(new Selector("GrailSort - No cache", SorterGrail::new));
-		list.add(new Selector("Arrays.sort() (Primitive)", SorterArraysPrimitive::new));
+		list.add(new Selector("Comb-Insertion Sort", SorterCombInsertion::new, "O(n^2)", "Starts with Comb Sort, then switches to Insertion Sort when the gap gets small enough."));
+		list.add(new Selector("Timsort", SorterTim::new, "O(nlogn)", "A sort by Tim Peters used in Python. Finds sequences that are already sorted (or creates them if needed), then merges them along the way."));
+		list.add(new Selector("J Sort", SorterJ::new, "?", "A sort by John Cohen. Uses Shuffle Sort on large sublists and Strand Sort on smaller ones."));
+		list.add(new Selector("WikiSort - No cache", SorterWiki::new, "O(nlogn)", "An implementation of Pok-Son Kim and Arne Kutzner's Block Merge Sort by Mike McFadden (BonzaiThePenguin)."));
+		list.add(new Selector("GrailSort - No cache", SorterGrail::new, "O(nlogn)", "An implementation of Pok-Son Kim and Arne Kutzner's Block Merge Sort by the late Andrey Astrelin (Mrrl)."));
+		list.add(new Selector("Arrays.sort() (Primitive)", SorterArraysPrimitive::new, "?", "The algorigthm used by OpenJDK 6 for primitives."));
 		//list.add(new Selector("Arrays.sort() (Object, legacy)", SorterArraysObject::new));
 		
 		//Collections.sort(list);

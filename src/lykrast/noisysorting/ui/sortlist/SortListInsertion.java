@@ -14,9 +14,9 @@ public class SortListInsertion extends SortList {
 	static
 	{
 		List<SelectorAbstract> list = new ArrayList<>();
-		list.add(new Selector("Insertion Sort", SorterInsertion::new));
-		list.add(new Selector("Recursive Insertion Sort", SorterInsertionRecursive::new));
-		list.add(new Selector("Shellsort", SorterShell::new));
+		list.add(new Selector("Insertion Sort", SorterInsertion::new, "O(n^2)", "Removes elements from the list one by one, inserting them into a growing sorted list at the start until the whole list is sorted."));
+		list.add(new Selector("Recursive Insertion Sort", SorterInsertionRecursive::new, "O(n^log3) ?", "A variant of Insertion Sort by Rezaul Chowdhury and Pramod Ganapathi. Sorts small sections of the list, then merges them using Insertion Sort."));
+		list.add(new Selector("Shellsort", SorterShell::new, "O(nlogn)", "A sort by Donald Shell, with a gap sequence by Ciura. Sorts pairs of elements far apart from each other, then progressively reduces the gap until the whole list is sorted."));
 		
 		//Collections.sort(list);
 		sorts = list.toArray(sorts);

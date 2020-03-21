@@ -8,6 +8,8 @@ public class SorterJ extends SorterAbstract {
 	private static final int KEY_NUMBER = 8;
 	private static final int STRAND_TRESHOLD = 35;
 	
+	//Source that I managed to re-find
+	//https://groups.google.com/forum/#!msg/fido7.ru.algorithms/dL4SAH96OPY/s4oABNtMCCYJ
 	public SorterJ(VisualArray array)
 	{
 		super(array);

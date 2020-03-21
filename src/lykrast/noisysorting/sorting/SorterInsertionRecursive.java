@@ -10,7 +10,9 @@ public class SorterInsertionRecursive extends SorterAbstract {
 		super(array);
 	}
 
-	// http://pramodganapathi.com/doc/Sorting%20Algorithms.pdf
+	//From Divide-and-Conquer Variants of Bubble, Selection, and Insertion Sorts
+	//By Rezaul Chowdhury and Pramod Ganapathi
+	//https://docplayer.net/63490617-Divide-and-conquer-variants-of-bubble-selection-and-insertion-sorts.html
 	@Override
 	protected void sort() throws InterruptedException {
 		insertionSort(0, a.getSize()-1);

@@ -1,7 +1,9 @@
 package lykrast.noisysorting.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,15 +11,20 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import lykrast.noisysorting.array.FillerAbstract;
 import lykrast.noisysorting.array.VisualArray;
 import lykrast.noisysorting.sorting.SorterAbstract;
 
-public class OptionPanel extends JPanel implements ActionListener, ChangeListener {
+public class OptionPanel extends JPanel implements ActionListener, ChangeListener, ListSelectionListener {
 	private static final long serialVersionUID = 1L;
 	private SortingFrame parent;
 	private VisualArray array;
@@ -30,6 +37,8 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 	private SortTabbedPane sortTabs;
 	private SorterAbstract sorter;
 	private ArraySoundMaker soundMaker;
+	private JTextArea sortDescriptions;
+	private JScrollPane sortDescriptionsScroll;
 	
 	private static final int DEFAULT_VOLUME = 50;
 
@@ -39,44 +48,47 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		setLayout(new BorderLayout());
 		// List
 		sortTabs = new SortTabbedPane();
+		sortTabs.addChangeListener(this);
+		sortTabs.addListenerToLists(this);
 		add(sortTabs, BorderLayout.CENTER);
+		
+		sortDescriptions = new JTextArea(5, 1);
+		sortDescriptions.setFont(UIManager.getFont("Label.font"));
+		sortDescriptions.setEditable(false);
+		sortDescriptions.setLineWrap(true);
+		sortDescriptions.setWrapStyleWord(true);
+		add(sortDescriptionsScroll = new JScrollPane(sortDescriptions), BorderLayout.SOUTH);
+		updateDescription();
 		// Soundmaker
 		soundMaker = new ArraySoundMaker(array, DEFAULT_VOLUME);
 		// Options
 		JPanel options = new JPanel();
 		options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
 		// Buttons
-		// Top
 		JPanel buttonsTop = new JPanel();
-		buttonsTop.setLayout(new FlowLayout());
+		buttonsTop.setPreferredSize(new Dimension(210, 70));
+		buttonsTop.setMaximumSize(new Dimension(210, 70));
+		buttonsTop.setLayout(new WrapLayout(FlowLayout.CENTER));
 
 		sort = new JButton("Sort");
 		shuffle = new JButton("Shuffle");
 		reset = new JButton("Reset");
+		reverse = new JButton("Reverse");
+		nearShuffle = new JButton("Near Shuffle");
 
 		sort.addActionListener(this);
 		shuffle.addActionListener(this);
 		reset.addActionListener(this);
+		reverse.addActionListener(this);
+		nearShuffle.addActionListener(this);
 
 		buttonsTop.add(sort);
 		buttonsTop.add(shuffle);
 		buttonsTop.add(reset);
+		buttonsTop.add(reverse);
+		buttonsTop.add(nearShuffle);
 
 		options.add(buttonsTop);
-		// Bottom
-		JPanel buttonsBot = new JPanel();
-		buttonsBot.setLayout(new FlowLayout());
-
-		reverse = new JButton("Reverse");
-		nearShuffle = new JButton("Near Shuffle");
-
-		reverse.addActionListener(this);
-		nearShuffle.addActionListener(this);
-
-		buttonsBot.add(reverse);
-		buttonsBot.add(nearShuffle);
-
-		options.add(buttonsBot);
 		// Speed
 		speedSlider = new JSlider(0, 1000, 100);
 		speedSlider.setMajorTickSpacing(100);
@@ -88,17 +100,20 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		options.add(speedSlider);
 
 		// Combo boxes
+		JPanel filling = new JPanel();
+		filling.setLayout(new GridLayout(1, 2));
+		options.add(filling);
 		// Filler
 		fillerCombo = new FillerComboBox();
 		fillerCombo.setBorder(BorderFactory.createTitledBorder("Fill mode"));
 
-		options.add(fillerCombo);
+		filling.add(fillerCombo);
 		// Label
 		labelCombo = new LabelComboBox();
 		labelCombo.setBorder(BorderFactory.createTitledBorder("Display mode"));
 		parent.setLabelComboBox(labelCombo);
 
-		options.add(labelCombo);
+		filling.add(labelCombo);
 
 		// Array Size
 		sizeSlider = new JSlider(0, 1000, 20);
@@ -171,6 +186,20 @@ public class OptionPanel extends JPanel implements ActionListener, ChangeListene
 		else if (event.getSource() == volumeSlider) {
 			soundMaker.setVolume(volumeSlider.getValue());
 		}
+		else if (event.getSource() == sortTabs) {
+			updateDescription();
+		}
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent event) {
+		updateDescription();
+	}
+	
+	private void updateDescription() {
+		sortDescriptions.setText(sortTabs.getSelector().description());
+		sortDescriptions.setCaretPosition(0);
+		sortDescriptionsScroll.getVerticalScrollBar().setValue(0);
 	}
 
 	public void setArray(VisualArray a) {
