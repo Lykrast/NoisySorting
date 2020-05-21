@@ -22,6 +22,7 @@ public class SortListSelection extends SortList {
 		list.add(new Selector("Min Heap Sort", SorterHeapMin::new, "O(nlogn)", "A sort by J. W. J. Williams improved by R. W. Floyd. Turns the list into a min heap, then repeatedly extracts the minimum element until the whole list is sorted, fixing the heap in the process. The list is then reversed to be in correct order."));
 		list.add(new Selector("Ternary Heap Sort", SorterHeapTernary::new, "O(nlogn) ?", "A variant of Max Heap Sort that makes a ternary max heap, which has a different structure."));
 		list.add(new Selector("Weak Heap Sort", SorterHeapWeak::new, "O(nlogn) ?", "A variant of Max Heap Sort that makes a weak max heap, which has a different structure but requires extra memory."));
+		list.add(new Selector("Poplar Heap Sort", SorterHeapPoplar::new, "O(nlogn)", "A variant of Max Heap Sort by Coenraad Bron and Wim H. Hesselink with upgrades by Morwenn that makes a poplar heap, which can take advantage of presortedness."));
 		list.add(new Selector("Smoothsort", SorterSmooth::new, "O(nlogn)", "A sort by Edsger Dijkstra. Turns the list into a tree structure and uses it to extract elements to be put in their correct place."));
 		list.add(new Selector("Cycle Sort", SorterCycle::new, "O(n^2)", "Finds the correct position of each element by counting how many elements are larger than it, then swaps it into that position."));
 		
