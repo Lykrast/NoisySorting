@@ -34,6 +34,7 @@ public abstract class SorterAbstract extends SwingWorker<Object, Object> {
 	protected void cleanup() {}
 
 	protected void sleep() throws InterruptedException {
+		a.sendFrame();
 		Thread.sleep(timeout);
 		a.sendRefresh();
 	}

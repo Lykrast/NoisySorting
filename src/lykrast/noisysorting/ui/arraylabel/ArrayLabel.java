@@ -7,10 +7,7 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
-import lykrast.noisysorting.array.VAEventAbstract;
-import lykrast.noisysorting.array.VAEventClear;
-import lykrast.noisysorting.array.VAEventMultiple;
-import lykrast.noisysorting.array.VAEventRefresh;
+import lykrast.noisysorting.array.VAEvent;
 import lykrast.noisysorting.array.VAEventSingle;
 import lykrast.noisysorting.array.VAItemStatus;
 import lykrast.noisysorting.array.VisualArray;
@@ -20,9 +17,8 @@ public abstract class ArrayLabel extends JLabel implements Observer {
 	protected VisualArray array;
 	protected VAItemStatus[] status;
 	protected boolean[] changeNext;
-	
-	public ArrayLabel(VisualArray array)
-	{
+
+	public ArrayLabel(VisualArray array) {
 		this.array = array;
 		status = new VAItemStatus[array.getSize()];
 		changeNext = new boolean[array.getSize()];
@@ -30,14 +26,12 @@ public abstract class ArrayLabel extends JLabel implements Observer {
 		Arrays.fill(changeNext, false);
 		array.addObserver(this);
 	}
-	
-	public VisualArray getArray()
-	{
+
+	public VisualArray getArray() {
 		return array;
 	}
-	
-	public void setArray(VisualArray array)
-	{
+
+	public void setArray(VisualArray array) {
 		this.array.deleteObserver(this);
 		this.array = array;
 		status = new VAItemStatus[array.getSize()];
@@ -48,45 +42,36 @@ public abstract class ArrayLabel extends JLabel implements Observer {
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {		
-		if (arg1 instanceof VAEventAbstract) processVAEvent((VAEventAbstract)arg1);
-		
-		revalidate();
-		repaint();
+	public void update(Observable arg0, Object arg1) {
+		if (arg1 instanceof VAEvent) processVAEvent((VAEvent) arg1);
 	}
-	
-	private void processVAEvent(VAEventAbstract ev)
-	{
-		if (ev instanceof VAEventSingle)
-		{
-			VAEventSingle event = (VAEventSingle)ev;
-			status[event.getIndex()] = event.getStatus();
-			if (event.isTemporary()) changeNext[event.getIndex()] = true;
-		}
-		else if (ev instanceof VAEventMultiple)
-		{
-			VAEventAbstract[] events = ((VAEventMultiple)ev).getEvents();
-			for (VAEventAbstract event : events) processVAEvent(event);
-		}
-		else if (ev instanceof VAEventRefresh)
-		{
-			for (int i=0; i<array.getSize();i++)
-			{
-				if (changeNext[i])
-				{
-					changeNext[i] = false;
-					if (array.isMarked(i)) status[i] = VAItemStatus.MARKED;
-					else status[i] = VAItemStatus.DEFAULT;
+
+	private void processVAEvent(VAEvent ev) {
+		switch (ev.getType()) {
+			case SINGLE:
+				VAEventSingle event = ev.toSingle();
+				status[event.getIndex()] = event.getStatus();
+				if (event.isTemporary()) changeNext[event.getIndex()] = true;
+				break;
+			case REFRESH:
+				for (int i = 0; i < array.getSize(); i++) {
+					if (changeNext[i]) {
+						changeNext[i] = false;
+						if (array.isMarked(i)) status[i] = VAItemStatus.MARKED;
+						else status[i] = VAItemStatus.DEFAULT;
+					}
 				}
-			}
-		}
-		else if (ev instanceof VAEventClear)
-		{
-			Arrays.fill(status, VAItemStatus.DEFAULT);
-			Arrays.fill(changeNext, false);
+				break;
+			case CLEAR:
+				Arrays.fill(status, VAItemStatus.DEFAULT);
+				Arrays.fill(changeNext, false);
+			case FRAME:
+				revalidate();
+				repaint();
+				break;
 		}
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -94,7 +79,7 @@ public abstract class ArrayLabel extends JLabel implements Observer {
 		paintArray(modified);
 		modified.dispose();
 	}
-	
+
 	protected abstract void paintArray(Graphics g);
 
 }
